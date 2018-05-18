@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */; };
 		46B79C7E20AF53AB00EE37E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B79C7D20AF53AB00EE37E7 /* AppDelegate.swift */; };
 		46B79C8020AF53AB00EE37E7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B79C7F20AF53AB00EE37E7 /* ViewController.swift */; };
 		46B79C8320AF53AB00EE37E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8120AF53AB00EE37E7 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		26C59420ABAA28F161573FC9 /* Pods-EmployeesAnalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.release.xcconfig"; sourceTree = "<group>"; };
 		40ECEE000D9A4CF7874F8EE9 /* Pods-EmployeesAnalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.debug.xcconfig"; sourceTree = "<group>"; };
+		465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwinjectStoryboard+Setup.swift"; sourceTree = "<group>"; };
 		46B79C7A20AF53AB00EE37E7 /* EmployeesAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeesAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46B79C7D20AF53AB00EE37E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46B79C7F20AF53AB00EE37E7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +42,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		465ED31420AF55D1006DE217 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				46B79C8420AF53AD00EE37E7 /* Assets.xcassets */,
+				46B79C8620AF53AD00EE37E7 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		465ED31520AF5613006DE217 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				46B79C7D20AF53AB00EE37E7 /* AppDelegate.swift */,
+				465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		465ED31A20AF57CE006DE217 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		465ED31B20AF57D6006DE217 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		465ED31C20AF57E2006DE217 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		465ED31D20AF57FB006DE217 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
 		46B79C7120AF53AB00EE37E7 = {
 			isa = PBXGroup;
 			children = (
@@ -61,12 +109,15 @@
 		46B79C7C20AF53AB00EE37E7 /* EmployeesAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				46B79C7D20AF53AB00EE37E7 /* AppDelegate.swift */,
+				465ED31A20AF57CE006DE217 /* Model */,
+				465ED31D20AF57FB006DE217 /* Infrastructure */,
+				465ED31B20AF57D6006DE217 /* View */,
+				465ED31C20AF57E2006DE217 /* ViewModel */,
+				465ED31520AF5613006DE217 /* Configuration */,
+				465ED31420AF55D1006DE217 /* Resources */,
 				46B79C7F20AF53AB00EE37E7 /* ViewController.swift */,
-				46B79C8120AF53AB00EE37E7 /* Main.storyboard */,
-				46B79C8420AF53AD00EE37E7 /* Assets.xcassets */,
-				46B79C8620AF53AD00EE37E7 /* LaunchScreen.storyboard */,
 				46B79C8920AF53AD00EE37E7 /* Info.plist */,
+				46B79C8120AF53AB00EE37E7 /* Main.storyboard */,
 			);
 			path = EmployeesAnalytics;
 			sourceTree = "<group>";
@@ -180,6 +231,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ACFloatingTextfield-Swift/ACFloatingTextfield_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
@@ -189,6 +241,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACFloatingTextfield_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
@@ -227,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46B79C8020AF53AB00EE37E7 /* ViewController.swift in Sources */,
+				465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */,
 				46B79C7E20AF53AB00EE37E7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

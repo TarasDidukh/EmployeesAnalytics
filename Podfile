@@ -10,5 +10,6 @@ target 'EmployeesAnalytics' do
   pod 'SwinjectStoryboard'
   pod 'Alamofire'
   pod 'ReactiveCocoa'
+  pod 'ACFloatingTextfield-Swift'
 
 end
