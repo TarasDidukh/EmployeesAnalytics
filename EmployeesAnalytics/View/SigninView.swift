@@ -97,6 +97,11 @@ class SigninView: UIViewController {
     
     private func bindView()
     {
+        #if DEBUG
+            loginField.text = "botanichek2015@gmail.com"
+            passwordField.text = "Bot541138"
+        #endif
+        
         if let viewModel = viewModel {
             viewModel.email <~ loginField.reactive.textValues
             viewModel.email.result.producer.on { result in
@@ -140,6 +145,8 @@ class SigninView: UIViewController {
                          self.loginButton.loadingIndicator(false)
                     }, completed: {
                         self.loginButton.loadingIndicator(false)
+                    }, value: {
+                        self.performSegue(withIdentifier: "showRootMenuView", sender: self)
                     }).start()
                     
                 }

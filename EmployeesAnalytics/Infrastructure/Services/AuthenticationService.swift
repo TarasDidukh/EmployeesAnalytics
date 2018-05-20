@@ -37,6 +37,7 @@ public final class AuthenticationService : AuthenticationServicing {
             }, value: { (authInfo) in
                 UserDefaults.standard.set(authInfo.email, forKey: StorageKey.UserEmail.rawValue)
                 UserDefaults.standard.set(authInfo.id, forKey: StorageKey.UserId.rawValue)
+                observer.send(value: ())
                 observer.sendCompleted()
             }).start()
             

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6820B1EC0700606ECC /* RootMenuView.swift */; };
+		463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6A20B1ECE100606ECC /* MenuView.swift */; };
+		463D1D6D20B1ED7700606ECC /* EmployeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6C20B1ED7700606ECC /* EmployeesView.swift */; };
 		465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */; };
 		46B0DA1720B01C00009F86D4 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1620B01C00009F86D4 /* SigninView.swift */; };
 		46B0DA1920B01CEE009F86D4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1820B01CEE009F86D4 /* AppColors.swift */; };
@@ -37,6 +40,9 @@
 /* Begin PBXFileReference section */
 		26C59420ABAA28F161573FC9 /* Pods-EmployeesAnalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.release.xcconfig"; sourceTree = "<group>"; };
 		40ECEE000D9A4CF7874F8EE9 /* Pods-EmployeesAnalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.debug.xcconfig"; sourceTree = "<group>"; };
+		463D1D6820B1EC0700606ECC /* RootMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMenuView.swift; sourceTree = "<group>"; };
+		463D1D6A20B1ECE100606ECC /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		463D1D6C20B1ED7700606ECC /* EmployeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesView.swift; sourceTree = "<group>"; };
 		465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwinjectStoryboard+Setup.swift"; sourceTree = "<group>"; };
 		46B0DA1620B01C00009F86D4 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 		46B0DA1820B01CEE009F86D4 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
@@ -113,6 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				46B0DA1620B01C00009F86D4 /* SigninView.swift */,
+				463D1D6820B1EC0700606ECC /* RootMenuView.swift */,
+				463D1D6A20B1ECE100606ECC /* MenuView.swift */,
+				463D1D6C20B1ED7700606ECC /* EmployeesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -371,10 +380,13 @@
 			files = (
 				46B0DA2820B048DE009F86D4 /* StringExtensions.swift in Sources */,
 				46B0DA4520B1B84E009F86D4 /* UIControllerExtensions.swift in Sources */,
+				463D1D6D20B1ED7700606ECC /* EmployeesView.swift in Sources */,
 				46B0DA4120B18224009F86D4 /* Constants.swift in Sources */,
 				46B0DA3820B172CF009F86D4 /* StorageKey.swift in Sources */,
 				46B0DA1C20B03503009F86D4 /* UIButtonExtensions.swift in Sources */,
+				463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */,
 				46B0DA3F20B17EEA009F86D4 /* AuthenticationService.swift in Sources */,
+				463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */,
 				46B0DA4320B19E6C009F86D4 /* ContentType.swift in Sources */,
 				46B0DA3120B0B35F009F86D4 /* Network.swift in Sources */,
 				46B0DA1E20B03544009F86D4 /* SigninViewModeling.swift in Sources */,
@@ -544,7 +556,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = EmployeesAnalytics/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.education.EmployeesAnalytics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -559,7 +574,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = EmployeesAnalytics/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.education.EmployeesAnalytics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -15,6 +15,10 @@ extension SwinjectStoryboard {
            c.viewModel = r.resolve(SigninViewModeling.self)
         }
         
+        defaultContainer.storyboardInitCompleted(RootMenuView.self){_,_ in }
+        defaultContainer.storyboardInitCompleted(MenuView.self){_,_ in }
+        defaultContainer.storyboardInitCompleted(EmployeesView.self){_,_ in }
+        
         defaultContainer.register(Networking.self) { _ in Network() }
         
         defaultContainer.register(AuthenticationServicing.self) { r in
