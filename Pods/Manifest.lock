@@ -6,6 +6,7 @@ PODS:
   - ReactiveSwift (3.1.0):
     - Result (~> 3.2)
   - Result (3.2.4)
+  - SideMenuController (0.2.4)
   - Swinject (2.4.0)
   - SwinjectStoryboard (1.2.1):
     - Swinject (~> 2.3)
@@ -14,6 +15,7 @@ DEPENDENCIES:
   - ACFloatingTextfield-Swift
   - Alamofire
   - ReactiveCocoa
+  - SideMenuController
   - Swinject
   - SwinjectStoryboard
 
@@ -23,9 +25,10 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 476dae7ca790f40d30d186a1bd7ebae4290395d5
   ReactiveSwift: 5b26d2e988fe0eed2daf48c4054d1de74db50184
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
   Swinject: a1364b0f66c2736bb03c1c7cab54809e16df25da
   SwinjectStoryboard: de60d1d30fbf442fe90fc5c31d9fff89cf3ef64f
 
-PODFILE CHECKSUM: 766ec3d6250d1b709c15b11c8c98f252b59c77d7
+PODFILE CHECKSUM: 8d62a26eb64a860307aacdeaac07a52859714c71
 
 COCOAPODS: 1.4.0

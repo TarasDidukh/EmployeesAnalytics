@@ -11,5 +11,6 @@ target 'EmployeesAnalytics' do
   pod 'Alamofire'
   pod 'ReactiveCocoa'
   pod 'ACFloatingTextfield-Swift'
+  pod 'SideMenuController'
 
 end

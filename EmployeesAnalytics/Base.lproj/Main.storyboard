@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Signin View-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EmployeesAnalytics" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SigninView" customModule="EmployeesAnalytics" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,9 +25,31 @@
                                     <constraint firstAttribute="width" constant="150" id="zlE-Pt-eOd"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tQX-Dn-iLM" customClass="ACFloatingTextfield" customModule="ACFloatingTextfield_Swift">
-                                <rect key="frame" x="37" y="305" width="300" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tQX-Dn-iLM" customClass="ACFloatingTextfield" customModule="ACFloatingTextfield_Swift">
+                                <rect key="frame" x="37" y="429" width="300" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="fOM-9W-Glm"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiC-95-U9v">
+                                <rect key="frame" x="37" y="556" width="300" height="52"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="ewN-PG-hPp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vza-TE-JMy" customClass="ACFloatingTextfield" customModule="ACFloatingTextfield_Swift">
+                                <rect key="frame" x="37" y="356" width="300" height="68"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="m6L-bE-doV"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -37,12 +59,31 @@
                         <constraints>
                             <constraint firstItem="p0M-24-g1F" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="95" id="8x7-BR-RJq"/>
                             <constraint firstItem="p0M-24-g1F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QMt-ol-DtK"/>
+                            <constraint firstItem="hiC-95-U9v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="Yb2-B9-VKp"/>
+                            <constraint firstItem="tQX-Dn-iLM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="dvh-k2-s0b"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hiC-95-U9v" secondAttribute="bottom" constant="59" id="gyj-F4-aHP"/>
+                            <constraint firstItem="hiC-95-U9v" firstAttribute="top" secondItem="tQX-Dn-iLM" secondAttribute="bottom" constant="59" id="mj7-8u-7Zm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hiC-95-U9v" secondAttribute="trailing" constant="38" id="rWI-G3-BLQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vza-TE-JMy" secondAttribute="trailing" constant="38" id="rvA-aE-Z0d"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tQX-Dn-iLM" secondAttribute="trailing" constant="38" id="sOA-yy-47q"/>
+                            <constraint firstItem="tQX-Dn-iLM" firstAttribute="top" secondItem="Vza-TE-JMy" secondAttribute="bottom" constant="5" id="vfK-xR-IZG"/>
+                            <constraint firstItem="Vza-TE-JMy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="z01-uW-aDK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="loginBottomCnstr" destination="gyj-F4-aHP" id="ag3-tg-qPT"/>
+                        <outlet property="loginButton" destination="hiC-95-U9v" id="k0M-vn-0Bk"/>
+                        <outlet property="loginField" destination="Vza-TE-JMy" id="ttP-Qd-4nQ"/>
+                        <outlet property="logoHeightCnstr" destination="Tg5-vc-4Sz" id="ROd-xQ-4Lk"/>
+                        <outlet property="logoTopCnstr" destination="8x7-BR-RJq" id="Kc6-2n-UA3"/>
+                        <outlet property="logoWidthCnstr" destination="zlE-Pt-eOd" id="hn5-n5-Bco"/>
+                        <outlet property="passwordField" destination="tQX-Dn-iLM" id="wAG-BB-utg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>
     </scenes>
     <resources>

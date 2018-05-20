@@ -8,11 +8,21 @@
 
 import Foundation
 import SwinjectStoryboard
+
 extension SwinjectStoryboard {
     @objc class func setup() {
-//        defaultContainer.storyboardInitCompleted(ViewController.self) { r, c in
-//            c.viewModel = r.resolve(LoginViewModeling.self)
-//        }
-//        defaultContainer.register(LoginViewModeling.self) { _ in LoginViewModel() }
+        defaultContainer.storyboardInitCompleted(SigninView.self) { r, c in
+           c.viewModel = r.resolve(SigninViewModeling.self)
+        }
+        
+        defaultContainer.register(Networking.self) { _ in Network() }
+        
+        defaultContainer.register(AuthenticationServicing.self) { r in
+            AuthenticationService(network: r.resolve(Networking.self)!)
+        }
+        
+        defaultContainer.register(SigninViewModeling.self) { r in
+            SigininViewModel(authenticationService: r.resolve(AuthenticationServicing.self)!)
+        }
     }
 }

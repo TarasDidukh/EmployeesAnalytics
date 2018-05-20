@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  EmployeesAnalytics
+
+  Created by Taras Didukh on 5/19/18.
+  Copyright © 2018 Taras Didukh. All rights reserved.
+*/
+"LoginTitle" = "Login";
+"LoginPlaceholder" = "Login";
+"PasswordPlaceholder" = "Password";
+"LoginEmpty" = "Login is required.";
+"PasswordEmpty" = "Password is required.";
+"LoginIncorrect" = "Incorrect format.";
+"UserNotExist" = "Login or Password is incorrect, try again.";
+
+"NoConnection" = "Check your network connection and try again.";
+"Unknown" = "An unknown network error has occured.";
