@@ -10,6 +10,7 @@
 		463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6820B1EC0700606ECC /* RootMenuView.swift */; };
 		463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6A20B1ECE100606ECC /* MenuView.swift */; };
 		463D1D6D20B1ED7700606ECC /* EmployeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6C20B1ED7700606ECC /* EmployeesView.swift */; };
+		463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */; };
 		465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */; };
 		46B0DA1720B01C00009F86D4 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1620B01C00009F86D4 /* SigninView.swift */; };
 		46B0DA1920B01CEE009F86D4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1820B01CEE009F86D4 /* AppColors.swift */; };
@@ -43,6 +44,7 @@
 		463D1D6820B1EC0700606ECC /* RootMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMenuView.swift; sourceTree = "<group>"; };
 		463D1D6A20B1ECE100606ECC /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		463D1D6C20B1ED7700606ECC /* EmployeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesView.swift; sourceTree = "<group>"; };
+		463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwinjectStoryboard+Setup.swift"; sourceTree = "<group>"; };
 		46B0DA1620B01C00009F86D4 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 		46B0DA1820B01CEE009F86D4 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				46B0DA1B20B03503009F86D4 /* UIButtonExtensions.swift */,
 				46B0DA2720B048DE009F86D4 /* StringExtensions.swift */,
 				46B0DA4420B1B84E009F86D4 /* UIControllerExtensions.swift */,
+				463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */,
 				46B0DA2620B04244009F86D4 /* SigininViewModel.swift in Sources */,
 				46B0DA3D20B17EDC009F86D4 /* AuthenticationServicing.swift in Sources */,
+				463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */,
 				46B0DA1920B01CEE009F86D4 /* AppColors.swift in Sources */,
 				46B0DA3520B16A50009F86D4 /* ErrorProvider.swift in Sources */,
 				46B79C7E20AF53AB00EE37E7 /* AppDelegate.swift in Sources */,

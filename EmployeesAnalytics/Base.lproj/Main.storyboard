@@ -94,9 +94,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="7Sg-6y-OUX">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neq-Wa-w6W">
+                                    <rect key="frame" x="20" y="130" width="341" height="19"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="7lB-41-uxa">
+                                    <rect key="frame" x="20" y="35" width="75" height="75"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aR4-aI-vQx">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="198" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aR4-aI-vQx" id="Lhu-37-OVK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -110,10 +129,15 @@
                             <outlet property="delegate" destination="wU1-7s-Lqj" id="8mf-9y-ybx"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="headerView" destination="7Sg-6y-OUX" id="6tc-vM-YQW"/>
+                        <outlet property="profileImage" destination="7lB-41-uxa" id="mAS-Zk-crc"/>
+                        <outlet property="userNameLabel" destination="neq-Wa-w6W" id="NsR-vX-Nhb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwP-gL-Mcj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="436"/>
+            <point key="canvasLocation" x="948" y="435.83208395802103"/>
         </scene>
         <!--Root Menu View-->
         <scene sceneID="JMX-26-h7M">
@@ -180,5 +204,6 @@
     </scenes>
     <resources>
         <image name="logo" width="209" height="147"/>
+        <image name="noAvatar" width="170" height="170"/>
     </resources>
 </document>
