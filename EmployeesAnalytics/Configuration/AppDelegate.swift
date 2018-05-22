@@ -8,12 +8,51 @@
 
 import UIKit
 import SideMenuController
+import SwinjectStoryboard
+import Swinject
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var container: Container = {
+        let container = Container()
+        container.storyboardInitCompleted(SigninView.self) { r, c in
+            c.viewModel = r.resolve(SigninViewModeling.self)
+        }
+        container.storyboardInitCompleted(RootMenuView.self){_,_ in }
+        container.storyboardInitCompleted(MenuView.self) { r, c in
+            c.viewModel = r.resolve(MenuViewModeling.self)
+        }
+        
+        container.storyboardInitCompleted(ProfileView.self) { r, c in
+            c.viewModel = r.resolve(ProfileViewModeling.self)
+        }
+        
+        container.storyboardInitCompleted(EmployeesView.self){_,_ in }
+        
+        container.register(Networking.self) { _ in Network() }
+        
+        container.register(AuthenticationServicing.self) { r in
+            AuthenticationService(network: r.resolve(Networking.self)!)
+        }
+        
+        container.register(AccountServicing.self) { r in
+            AccountService(network: r.resolve(Networking.self)!)
+        }
+        
+        container.register(ProfileViewModeling.self) { _ in ProfileViewModel() }
+        
+        container.register(SigninViewModeling.self) { r in
+            SigininViewModel(authenticationService: r.resolve(AuthenticationServicing.self)!)
+        }
+        
+        container.register(MenuViewModeling.self) { r in
+            MenuViewModel(authenticationService: r.resolve(AuthenticationServicing.self)!, accountService: r.resolve(AccountServicing.self)!)
+        }
+        
+        return container
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -26,7 +65,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.statusBarView?.backgroundColor = .black
         UIApplication.shared.statusBarStyle = .lightContent
+        let storyboard = SwinjectStoryboard.create(name: "Main", bundle: nil, container: container)
+        var initView = "SigninView"
         
+        if container.resolve(AuthenticationServicing.self)!.checkAuthentication() {
+            initView = "RootMenuView"
+        }
+        window?.rootViewController = storyboard.instantiateViewController(withIdentifier: initView)
+        window?.makeKeyAndVisible()
         
         return true
     }

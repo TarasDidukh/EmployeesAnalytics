@@ -17,8 +17,7 @@ struct InputError: Error {
 public final class SigininViewModel : SigninViewModeling {
     var Signin: Action<(), (), SigninError>?
     
-    var email: ValidatingProperty<String?, InputError> = ValidatingProperty<String?, InputError>(nil)
-    {
+    var email: ValidatingProperty<String?, InputError> = ValidatingProperty<String?, InputError>(nil) {
         if $0 == nil || $0!.isEmpty {
             return .invalid(InputError(reason: NSLocalizedString("LoginEmpty", comment: "")))
         }
@@ -35,8 +34,7 @@ public final class SigininViewModel : SigninViewModeling {
     
     private var _signinError: SigninError?
     
-    lazy var password: ValidatingProperty<String?, InputError> = ValidatingProperty<String?, InputError>(nil)
-    {
+    lazy var password: ValidatingProperty<String?, InputError> = ValidatingProperty<String?, InputError>(nil) {
         if self._signinError != nil && self._signinError?.type == NetworkError.InvalidGrant {
             return .invalid(InputError(reason: self._signinError?.type?.description ?? ""))
         } else {

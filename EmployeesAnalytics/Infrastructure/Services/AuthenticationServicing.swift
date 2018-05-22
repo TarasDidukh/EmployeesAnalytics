@@ -11,4 +11,6 @@ import ReactiveSwift
 
 protocol AuthenticationServicing {
     func signin(login: String, password: String) -> SignalProducer<(), SigninError>
+    func signout()
+    func checkAuthentication() -> Bool
 }

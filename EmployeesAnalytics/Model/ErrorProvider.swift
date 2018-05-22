@@ -10,7 +10,6 @@ import Foundation
 
 protocol ErrorProvider : Error, Codable{
     var type: NetworkError? { get }
-    var description: String? { get }
     
     init(error: NSError)
     init()

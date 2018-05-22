@@ -8,6 +8,7 @@
 import ReactiveSwift
 import Foundation
 import Alamofire
+import Result
 
 public final class Network : Networking {
     var withApiToken: Bool
@@ -37,7 +38,7 @@ public final class Network : Networking {
         return adaptedUrlRequst
     }
     
-    func Post<TRequest: Codable, TResponse: Codable, TError: ErrorProvider>(_ url: String, _ data: TRequest) -> SignalProducer<TResponse, TError> {
+    func post<TRequest: Codable, TResponse: Codable, TError: ErrorProvider>(_ url: String, data: TRequest) -> SignalProducer<TResponse, TError> {
         return SignalProducer { observer, disposable in
             let encoder = JSONEncoder()
             let jsonData = try! encoder.encode(data)
@@ -54,9 +55,9 @@ public final class Network : Networking {
         }
     }
     
-    func Post<TResponse: Codable, TError: ErrorProvider>(_ url: String, parameters: [String: String]) -> SignalProducer<TResponse, TError> {
+    func post<TResponse : Codable, TError: ErrorProvider>(_ url: String, parameters: [String: String]?) -> SignalProducer<TResponse, TError> {
         return SignalProducer { observer, disposable in
-            var headers: [String: String]? = nil// ["Content-Type": "application/x-www-form-urlencoded"]
+            var headers: [String: String]? = nil
             if let authHeader = self.InitAuth() {
                 headers = [authHeader.0 : authHeader.1]
             }
@@ -64,6 +65,33 @@ public final class Network : Networking {
             Alamofire.request(url, method: .post, parameters: parameters, headers: headers)
                 .responseJSON(queue: self.queue){ response in
                 self.handleResult(observer, response)
+            }
+        }
+    }
+    
+    func post(_ url: String, parameters: [String: String]?) -> SignalProducer<(), NoError> {
+        return SignalProducer { observer, disposable in
+            var headers: [String: String]? = nil
+            if let authHeader = self.InitAuth() {
+                headers = [authHeader.0 : authHeader.1]
+            }
+            Alamofire.request(url, method: .post, parameters: parameters, headers: headers)
+                .response(queue: self.queue){ response in
+                    observer.sendCompleted()
+            }
+        }
+    }
+    
+    func get<TResponse : Codable, TError: ErrorProvider>(_ url: String, parameters: [String: String]?) -> SignalProducer<TResponse, TError> {
+        return SignalProducer { observer, disposable in
+            var headers: [String: String]? = nil
+            if let authHeader = self.InitAuth() {
+                headers = [authHeader.0 : authHeader.1]
+            }
+            
+            Alamofire.request(url, method: .get, parameters: parameters, headers: headers)
+                .responseJSON(queue: self.queue){ response in
+                    self.handleResult(observer, response)
             }
         }
     }

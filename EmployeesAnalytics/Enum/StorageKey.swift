@@ -10,4 +10,5 @@ enum StorageKey : String {
     case ApiAccessToken
     case UserEmail
     case UserId
+    case UserInfo
 }

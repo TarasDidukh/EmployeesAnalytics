@@ -6,6 +6,7 @@
 //  Copyright © 2018 Taras Didukh. All rights reserved.
 //
 import ReactiveSwift
+import Result
 
 public final class AuthenticationService : AuthenticationServicing {
     private var network: Networking
@@ -23,7 +24,7 @@ public final class AuthenticationService : AuthenticationServicing {
             ]
             let url = "\(Constants.BaseUrl)api/token"
             self.network.withApiToken = false
-            let producer: SignalProducer<AuthInfo, SigninError> = self.network.Post(url, parameters: parameters)
+            let producer: SignalProducer<AuthInfo, SigninError> = self.network.post(url, parameters: parameters)
             producer.on(
                 failed: { (signinError) in
                 observer.send(error: signinError)
@@ -37,6 +38,7 @@ public final class AuthenticationService : AuthenticationServicing {
             }, value: { (authInfo) in
                 UserDefaults.standard.set(authInfo.email, forKey: StorageKey.UserEmail.rawValue)
                 UserDefaults.standard.set(authInfo.id, forKey: StorageKey.UserId.rawValue)
+                UserDefaults.standard.set(authInfo.accessToken, forKey: StorageKey.ApiAccessToken.rawValue)
                 observer.send(value: ())
                 observer.sendCompleted()
             }).start()
@@ -44,5 +46,16 @@ public final class AuthenticationService : AuthenticationServicing {
         }
     }
     
+    func checkAuthentication() -> Bool {
+        return UserDefaults.standard.string(forKey: StorageKey.ApiAccessToken.rawValue) != nil
+    }
     
+    func signout() {
+        let url = "\(Constants.BaseUrl)api/account/Logout"
+        network.post(url, parameters: nil).start()
+        UserDefaults.standard.removeObject(forKey: StorageKey.ApiAccessToken.rawValue)
+        UserDefaults.standard.removeObject(forKey: StorageKey.UserEmail.rawValue)
+        UserDefaults.standard.removeObject(forKey: StorageKey.UserId.rawValue)
+        
+    }
 }

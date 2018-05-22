@@ -12,7 +12,7 @@ import Result
 
 protocol SigninViewModeling {
     var Signin: Action<(), (), SigninError>? { get set}
-    var email: ValidatingProperty<String?, InputError> { get set}
-    var password: ValidatingProperty<String?, InputError> { get set}
+    var email: ValidatingProperty<String?, InputError> { get }
+    var password: ValidatingProperty<String?, InputError> { get }
     var signinError: MutableProperty<SigninError?> { get }
 }

@@ -15,3 +15,11 @@
 
 "NoConnection" = "Check your network connection and try again.";
 "Unknown" = "An unknown network error has occured.";
+
+"Employees" = "Employees";
+"Dasboard" = "Dasboard";
+"Projects" = "Projects";
+"WorkLogOwn" = "Work log own";
+"Vacation" = "Vacation";
+"Responsibilities" = "Responsibilities";
+"LogOut" = "Log out";

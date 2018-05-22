@@ -18,4 +18,7 @@ public struct AppColors
     static let FieldSelectedPlaceholderColor = UIColor(red:0.25, green:0.58, blue:0.93, alpha:1)
     static let FieldErrorColor = UIColor(red:0.9, green:0.02, blue:0.02, alpha:1)
     static let MenuHeaderBackgroundColor = UIColor(red: 39/255, green:50/255, blue: 52/255, alpha:1)
+    
+    static let MenuItemIconTint = UIColor(red:0.56, green:0.58, blue:0.6, alpha:1)
+    static let MenuSeparatorColor = UIColor(red:0.89, green:0.89, blue:0.91, alpha:1)
 }

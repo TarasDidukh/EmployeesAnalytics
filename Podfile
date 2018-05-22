@@ -12,5 +12,6 @@ target 'EmployeesAnalytics' do
   pod 'ReactiveCocoa'
   pod 'ACFloatingTextfield-Swift'
   pod 'SideMenuController'
+  pod 'Kingfisher'
 
 end
