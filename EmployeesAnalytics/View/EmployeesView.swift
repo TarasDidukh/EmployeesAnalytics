@@ -10,18 +10,25 @@ import UIKit
 import ReactiveSwift
 import ReactiveCocoa
 import Foundation
+import Result
 
 class EmployeesView: UITableViewController {
     public var viewModel: EmployeesViewModeling?
-    let searchBar = UISearchBar()
+    var searchBar = UISearchBar()
     var navigationData: Employee?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        
         tableView.tableFooterView = UIView()
         
+        
         bindView()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     
@@ -32,6 +39,22 @@ class EmployeesView: UITableViewController {
                 .start()
             viewModel.searchInput <~ searchBar.reactive.continuousTextValues
                 .throttle(0.5, on: QueueScheduler.main)
+            
+            let topSpace: CGFloat = 100
+            viewModel.Search?.isExecuting.producer.observe(on: UIScheduler()).on(value: { (isExecuting) in
+                if viewModel.employeeItems.value.count == 0 {
+                    if isExecuting {
+                        self.view.activityIndicator(true, UIScreen.main.bounds.height/3)
+                        self.view.emptyList(false)
+                    } else {
+                        self.view.activityIndicator(false)
+                        self.view.emptyList(true, NSLocalizedString("EmptyEmployees", comment: ""), UIScreen.main.bounds.height/3 - 10)
+                    }
+                } else {
+                    self.view.activityIndicator(false)
+                    self.view.emptyList(false)
+                }
+            }).start()
         }
     }
 
@@ -63,22 +86,27 @@ class EmployeesView: UITableViewController {
     }
     
     func setupSearchBar() {
-        
+        //searchBar = UISearchBar(frame: CGRect(x: 200, y: 0, width: self.view.frame.width - 200, height: 44))
         
         searchBar.reactive.searchButtonClicked.observeValues { _ in
             self.viewModel?.searchInput.value = self.searchBar.text
             self.searchBar.endEditing(true)
         }
-        searchBar.reactive.cancelButtonClicked.observeValues { _ in
-            self.viewModel?.searchInput.value = ""
-            self.searchBar.endEditing(true)
-        }
+        navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
+            return SignalProducer { observer, disposable in
+                self.searchBar.text = ""
+                self.viewModel?.searchInput.value = ""
+                self.searchBar.endEditing(true)
+                observer.sendCompleted()
+            }
+        }))
+        
         searchBar.searchBarStyle = UISearchBarStyle.minimal
         searchBar.sizeToFit()
         searchBar.placeholder = NSLocalizedString("Search", comment: "")
         searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
         
-        let uiTextField = searchBar.value(forKey: "searchField") as? UITextField
+        let uiTextField = searchBar.subviews[0].subviews.last as? UITextField
         uiTextField?.layer.cornerRadius = 8
         uiTextField?.clipsToBounds = true
         uiTextField?.font = UIFont(name: "HelveticaNeue", size: 16)
@@ -87,12 +115,17 @@ class EmployeesView: UITableViewController {
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: AppColors.FieldPlaceholderColor, range: NSMakeRange(0, uiTextField!.placeholder!.count))
         uiTextField?.attributedPlaceholder = attributedString
         uiTextField?.layer.borderWidth = 1
-        let searchIcon = uiTextField?.leftView as! UIImageView;
-        searchIcon.image = UIImage(named: "searchSB")
+        let searchIcon = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        searchIcon.image = UIImage(named: "search")
         searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        searchIcon.tintColor = AppColors.SearchIconTint;
-        uiTextField?.leftView = searchIcon;
-        navigationItem.titleView = searchBar;
+        searchIcon.tintColor = AppColors.SearchIconTint
+        uiTextField?.rightView = nil
+        uiTextField?.leftViewMode = UITextFieldViewMode.always
+        uiTextField?.leftView = searchIcon
+        navigationItem.titleView = searchBar
+       
+        searchBar.leftAnchor.constraint(equalTo: (navigationController?.navigationBar.leftAnchor)!, constant: 50).isActive = true
+        searchBar.rightAnchor.constraint(equalTo: (navigationController?.navigationBar.rightAnchor)!, constant: -60).isActive = true
     }
 
 }

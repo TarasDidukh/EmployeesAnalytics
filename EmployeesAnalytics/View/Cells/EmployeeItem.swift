@@ -19,7 +19,7 @@ class EmployeeItem: UITableViewCell {
             userNameLabel.text = viewModel?.userName
             positionLabel.text = viewModel?.position
             if let viewModel = viewModel, viewModel.avatar != nil, !viewModel.avatar!.isEmpty {
-                let processor = RoundCornerImageProcessor(cornerRadius: 37)
+                let processor = RoundCornerImageProcessor(cornerRadius: 20)
                 self.avatarImage.kf.setImage(with: URL(string: viewModel.avatar!), options: [.processor(processor)])
             }
             else {
@@ -33,6 +33,8 @@ class EmployeeItem: UITableViewCell {
         super.awakeFromNib()
         positionLabel.textColor = AppColors.GrayTextColor
         avatarImage.tintColor = AppColors.MenuHeaderBackgroundColor
+        avatarImage.layer.masksToBounds = true
+        avatarImage.layer.cornerRadius = 20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

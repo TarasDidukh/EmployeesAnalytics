@@ -30,6 +30,9 @@ class MenuView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindView()
+        
+        profileImage.layer.cornerRadius = 37
+        profileImage.layer.masksToBounds = true
 
         headerView.backgroundColor = AppColors.MenuHeaderBackgroundColor
         
@@ -60,6 +63,9 @@ class MenuView: UITableViewController {
                 .on(value: { userName in
                     if let userName = userName {
                         self.userNameLabel.text = userName
+                        if self.sideMenuController?.centerViewController is UINavigationController {
+                            ((self.sideMenuController?.centerViewController as! UINavigationController).topViewController as? ProfileView)?.viewModel?.employee = viewModel.employee
+                        }
                     }
                 }).start()
         }
@@ -67,9 +73,7 @@ class MenuView: UITableViewController {
     
     @IBAction func openProfile(_ sender: Any) {
         if let index = previousIndex {
-            (sideMenuController as! RootMenuView).navigationData = viewModel?.employee
-            sideMenuController?.performSegue(withIdentifier: "showProfileView", sender: nil)
-            (sideMenuController as! RootMenuView).navigationData = nil
+            sideMenuController?.performSegue(withIdentifier: "showProfileView", sender: viewModel?.employee)
             tableView.deselectRow(at: index as IndexPath, animated: true)
         }
         if sideMenuController?.sidePanelVisible == true {

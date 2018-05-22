@@ -280,7 +280,11 @@
                             <outlet property="delegate" destination="ynm-02-TqW" id="fIw-qr-5N7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Dw3-8W-q9G"/>
+                    <navigationItem key="navigationItem" id="Dw3-8W-q9G">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="e3N-7c-2Tz">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="T54-wS-WYe" kind="show" identifier="showProfileViewEmployee" id="bil-i3-BWh"/>
                     </connections>
@@ -440,6 +444,8 @@
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="edit" id="kRu-IW-ufC">
+                            <inset key="imageInsets" minX="-1" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>

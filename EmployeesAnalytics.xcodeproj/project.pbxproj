@@ -43,6 +43,7 @@
 		46B79C8320AF53AB00EE37E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8120AF53AB00EE37E7 /* Main.storyboard */; };
 		46B79C8520AF53AD00EE37E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8420AF53AD00EE37E7 /* Assets.xcassets */; };
 		46B79C8820AF53AD00EE37E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8620AF53AD00EE37E7 /* LaunchScreen.storyboard */; };
+		46E57A8E20B4B6B6000700CA /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */; };
 		46F7389F20B326A600B673C2 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F7389E20B326A600B673C2 /* MenuItem.swift */; };
 		46F738A220B338BA00B673C2 /* MenuViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F738A120B338BA00B673C2 /* MenuViewModeling.swift */; };
 		46F738A420B3392A00B673C2 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F738A320B3392A00B673C2 /* MenuViewModel.swift */; };
@@ -95,6 +96,7 @@
 		46B79C8420AF53AD00EE37E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46B79C8720AF53AD00EE37E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		46B79C8920AF53AD00EE37E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		46F7389E20B326A600B673C2 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		46F738A120B338BA00B673C2 /* MenuViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModeling.swift; sourceTree = "<group>"; };
 		46F738A320B3392A00B673C2 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				46B0DA2720B048DE009F86D4 /* StringExtensions.swift */,
 				46B0DA4420B1B84E009F86D4 /* UIControllerExtensions.swift */,
 				463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */,
+				46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				46F738A620B34E9700B673C2 /* Employee.swift in Sources */,
 				46B0DA3A20B17D33009F86D4 /* AuthInfo.swift in Sources */,
 				465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */,
+				46E57A8E20B4B6B6000700CA /* UIViewExtensions.swift in Sources */,
 				4671C0EE20B401BB006493C5 /* EmployeesView.swift in Sources */,
 				46B0DA2620B04244009F86D4 /* SigininViewModel.swift in Sources */,
 				4671C0E820B3ED2D006493C5 /* ProfileView.swift in Sources */,

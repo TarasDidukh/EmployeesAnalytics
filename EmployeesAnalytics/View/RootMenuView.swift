@@ -10,7 +10,6 @@ import UIKit
 import SideMenuController
 
 class RootMenuView: SideMenuController {
-    public var navigationData: Any?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +21,9 @@ class RootMenuView: SideMenuController {
         if segue.identifier == "showProfileView" {
             let nav = segue.destination as! UINavigationController
             let profileView: ProfileView = nav.topViewController as! ProfileView
-            profileView.viewModel?.employee = navigationData as? Employee
+            if let employee = sender as? Employee {
+                profileView.viewModel?.employee = employee
+            }
         }
     }
     
