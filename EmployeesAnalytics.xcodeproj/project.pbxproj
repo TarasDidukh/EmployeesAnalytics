@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6820B1EC0700606ECC /* RootMenuView.swift */; };
 		463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6A20B1ECE100606ECC /* MenuView.swift */; };
-		463D1D6D20B1ED7700606ECC /* EmployeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6C20B1ED7700606ECC /* EmployeesView.swift */; };
 		463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */; };
 		465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */; };
 		4671C0E820B3ED2D006493C5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671C0E720B3ED2D006493C5 /* ProfileView.swift */; };
 		4671C0EA20B3F6AE006493C5 /* ProfileViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671C0E920B3F6AE006493C5 /* ProfileViewModeling.swift */; };
 		4671C0EC20B3F7EE006493C5 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671C0EB20B3F7EE006493C5 /* ProfileViewModel.swift */; };
+		4671C0EE20B401BB006493C5 /* EmployeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671C0ED20B401BB006493C5 /* EmployeesView.swift */; };
 		46B0DA1720B01C00009F86D4 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1620B01C00009F86D4 /* SigninView.swift */; };
 		46B0DA1920B01CEE009F86D4 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1820B01CEE009F86D4 /* AppColors.swift */; };
 		46B0DA1C20B03503009F86D4 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B0DA1B20B03503009F86D4 /* UIButtonExtensions.swift */; };
@@ -53,12 +53,12 @@
 		40ECEE000D9A4CF7874F8EE9 /* Pods-EmployeesAnalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.debug.xcconfig"; sourceTree = "<group>"; };
 		463D1D6820B1EC0700606ECC /* RootMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMenuView.swift; sourceTree = "<group>"; };
 		463D1D6A20B1ECE100606ECC /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		463D1D6C20B1ED7700606ECC /* EmployeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesView.swift; sourceTree = "<group>"; };
 		463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwinjectStoryboard+Setup.swift"; sourceTree = "<group>"; };
 		4671C0E720B3ED2D006493C5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4671C0E920B3F6AE006493C5 /* ProfileViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModeling.swift; sourceTree = "<group>"; };
 		4671C0EB20B3F7EE006493C5 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		4671C0ED20B401BB006493C5 /* EmployeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesView.swift; sourceTree = "<group>"; };
 		46B0DA1620B01C00009F86D4 /* SigninView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 		46B0DA1820B01CEE009F86D4 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		46B0DA1B20B03503009F86D4 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
@@ -146,8 +146,8 @@
 				46B0DA1620B01C00009F86D4 /* SigninView.swift */,
 				463D1D6820B1EC0700606ECC /* RootMenuView.swift */,
 				463D1D6A20B1ECE100606ECC /* MenuView.swift */,
-				463D1D6C20B1ED7700606ECC /* EmployeesView.swift */,
 				4671C0E720B3ED2D006493C5 /* ProfileView.swift */,
+				4671C0ED20B401BB006493C5 /* EmployeesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -431,7 +431,6 @@
 			files = (
 				46B0DA2820B048DE009F86D4 /* StringExtensions.swift in Sources */,
 				46B0DA4520B1B84E009F86D4 /* UIControllerExtensions.swift in Sources */,
-				463D1D6D20B1ED7700606ECC /* EmployeesView.swift in Sources */,
 				46F738A420B3392A00B673C2 /* MenuViewModel.swift in Sources */,
 				46F738B020B35C3800B673C2 /* AccountServicing.swift in Sources */,
 				46B0DA4120B18224009F86D4 /* Constants.swift in Sources */,
@@ -452,6 +451,7 @@
 				46F738A620B34E9700B673C2 /* Employee.swift in Sources */,
 				46B0DA3A20B17D33009F86D4 /* AuthInfo.swift in Sources */,
 				465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */,
+				4671C0EE20B401BB006493C5 /* EmployeesView.swift in Sources */,
 				46B0DA2620B04244009F86D4 /* SigininViewModel.swift in Sources */,
 				4671C0E820B3ED2D006493C5 /* ProfileView.swift in Sources */,
 				46B0DA3D20B17EDC009F86D4 /* AuthenticationServicing.swift in Sources */,
