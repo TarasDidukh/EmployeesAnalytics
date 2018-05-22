@@ -40,9 +40,33 @@ public final class AccountService : AccountServicing {
                 observer.sendCompleted()
             }, value: { (employee) in
                 if let employee = employee.data, employee.id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue) {
-                    UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: employee), forKey: employee.id)
+                    UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: employee), forKey: employee.id!)
                 }
                 observer.send(value: employee.data)
+                observer.sendCompleted()
+            }).start()
+        }
+    }
+    
+    func searchEmployees(input: String?) -> SignalProducer<[Employee], DefaultError> {
+        return SignalProducer { observer, disposable in
+            let parameters : [String: String] = ["UserName": input ?? ""]
+            let url = "\(Constants.BaseUrl)api/users/GetUsersByUserName"
+            
+            let producer: SignalProducer<[Employee], DefaultError> = self.network.get(url, parameters: parameters)
+            producer.on(
+                failed: { (defaultError) in
+                    observer.send(error: defaultError)
+                    observer.sendCompleted()
+            }, completed: {
+                observer.sendCompleted()
+            }, interrupted: {
+                observer.sendCompleted()
+            }, terminated: {
+                observer.sendCompleted()
+            }, value: { (employees) in
+                
+                observer.send(value: employees)
                 observer.sendCompleted()
             }).start()
         }

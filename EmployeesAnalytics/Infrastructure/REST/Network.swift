@@ -100,6 +100,13 @@ public final class Network : Networking {
         switch response.result {
         case .success:
             do {
+                do {
+                    let test1 = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                    print(test1)
+                } catch let myJSONError {
+                    print(myJSONError)
+                }
+                
                 let result = try JSONDecoder().decode(TResponse.self, from: response.data!)
                 observer.send(value: result)
             }catch {

@@ -29,7 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             c.viewModel = r.resolve(ProfileViewModeling.self)
         }
         
-        container.storyboardInitCompleted(EmployeesView.self){_,_ in }
+        container.storyboardInitCompleted(EmployeesView.self){ r, c in
+            c.viewModel = r.resolve(EmployeesViewModeling.self)
+        }
         
         container.register(Networking.self) { _ in Network() }
         
@@ -45,6 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         container.register(SigninViewModeling.self) { r in
             SigininViewModel(authenticationService: r.resolve(AuthenticationServicing.self)!)
+        }
+        
+        container.register(EmployeesViewModeling.self) { r in
+            EmployeesViewModel(accountService: r.resolve(AccountServicing.self)!)
         }
         
         container.register(MenuViewModeling.self) { r in

@@ -21,4 +21,8 @@ public struct AppColors
     
     static let MenuItemIconTint = UIColor(red:0.56, green:0.58, blue:0.6, alpha:1)
     static let MenuSeparatorColor = UIColor(red:0.89, green:0.89, blue:0.91, alpha:1)
+    static let GrayTextColor = UIColor(red:0.56, green:0.58, blue:0.6, alpha:1)
+    
+    static let AlphaLight = UIColor(red: 233/255, green: 233/255, blue:233/255, alpha:1);
+    static let SearchIconTint = UIColor(red: 151/255, green: 151/255, blue:151/255, alpha:1);
 }

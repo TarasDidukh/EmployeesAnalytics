@@ -14,7 +14,7 @@ class RootMenuView: SideMenuController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        performSegue(withIdentifier: "showEmployeesView", sender: nil)
+        performSegue(withIdentifier: "showProfileView", sender: nil)
         performSegue(withIdentifier: "showMenuView", sender: nil)
     }
     

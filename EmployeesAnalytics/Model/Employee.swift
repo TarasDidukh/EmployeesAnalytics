@@ -12,43 +12,55 @@ struct EmployeeResult: Codable {
 }
 
 class Employee: NSObject, Codable, NSCoding {
-    var firstName, lastName, dateStartJob, avatarURL: String
-    var skype, facebook, linkedin, note: String
-    var croppedAvatarURL, id, email, phoneNumber: String
-    var roles: [String]
+    var firstName, lastName, dateStartJob, avatarURL: String?
+    var skype, facebook, linkedin, note: String?
+    var croppedAvatarURL, id, email, phoneNumber: String?
+    var roles: [String]?
     
     var userName: String {
         get {
-            return firstName + " " + lastName
+            return firstName! + " " + lastName!
         }
     }
     
     var avatar: String {
         get {
-            return Constants.ImageStorageUrl + croppedAvatarURL;
+            if let url = croppedAvatarURL, !url.isEmpty {
+                return Constants.ImageStorageUrl + url;
+            }
+            return ""
+        }
+    }
+    
+    var avatarFull: String {
+        get {
+            if let url = avatarURL, !url.isEmpty {
+                return Constants.ImageStorageUrl + url;
+            }
+            return ""
         }
     }
     
     var position: String? {
         get {
-            return roles.count == 0 ? nil : roles.joined(separator: ", ")
+            return roles?.count == 0 ? nil : roles?.joined(separator: ", ")
         }
     }
     
     required init(coder aDecoder: NSCoder) {
-        firstName = aDecoder.decodeObject(forKey: "firstName") as! String
-        lastName = aDecoder.decodeObject(forKey: "lastName") as! String
-        dateStartJob = aDecoder.decodeObject(forKey: "dateStartJob") as! String
-        avatarURL = aDecoder.decodeObject(forKey: "avatarURL") as! String
-        skype = aDecoder.decodeObject(forKey: "skype") as! String
-        facebook = aDecoder.decodeObject(forKey: "facebook") as! String
-        linkedin = aDecoder.decodeObject(forKey: "linkedin") as! String
-        note = aDecoder.decodeObject(forKey: "note") as! String
-        croppedAvatarURL = aDecoder.decodeObject(forKey: "croppedAvatarURL") as! String
-        id = aDecoder.decodeObject(forKey: "id") as! String
-        email = aDecoder.decodeObject(forKey: "email") as! String
-        phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as! String
-        roles = aDecoder.decodeObject(forKey: "roles") as! [String]
+        firstName = aDecoder.decodeObject(forKey: "firstName") as? String
+        lastName = aDecoder.decodeObject(forKey: "lastName") as? String
+        dateStartJob = aDecoder.decodeObject(forKey: "dateStartJob") as? String
+        avatarURL = aDecoder.decodeObject(forKey: "avatarURL") as? String
+        skype = aDecoder.decodeObject(forKey: "skype") as? String
+        facebook = aDecoder.decodeObject(forKey: "facebook") as? String
+        linkedin = aDecoder.decodeObject(forKey: "linkedin") as? String
+        note = aDecoder.decodeObject(forKey: "note") as? String
+        croppedAvatarURL = aDecoder.decodeObject(forKey: "croppedAvatarURL") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? String
+        email = aDecoder.decodeObject(forKey: "email") as? String
+        phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String
+        roles = aDecoder.decodeObject(forKey: "roles") as? [String]
     }
     
     func encode(with aCoder: NSCoder){

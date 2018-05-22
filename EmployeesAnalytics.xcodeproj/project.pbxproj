@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2367A3E720B4410800FEC8E2 /* EmployeeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3E620B4410800FEC8E2 /* EmployeeItem.swift */; };
+		2367A3E920B4431E00FEC8E2 /* EmployeeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3E820B4431E00FEC8E2 /* EmployeeItemViewModel.swift */; };
+		2367A3EB20B4434900FEC8E2 /* EmployeeItemViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3EA20B4434900FEC8E2 /* EmployeeItemViewModeling.swift */; };
+		2367A3ED20B4450000FEC8E2 /* EmployeesViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3EC20B4450000FEC8E2 /* EmployeesViewModeling.swift */; };
+		2367A3F120B4474C00FEC8E2 /* EmployeesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3F020B4474C00FEC8E2 /* EmployeesViewModel.swift */; };
 		463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6820B1EC0700606ECC /* RootMenuView.swift */; };
 		463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6A20B1ECE100606ECC /* MenuView.swift */; };
 		463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */; };
@@ -49,6 +54,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2367A3E620B4410800FEC8E2 /* EmployeeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeItem.swift; sourceTree = "<group>"; };
+		2367A3E820B4431E00FEC8E2 /* EmployeeItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeItemViewModel.swift; sourceTree = "<group>"; };
+		2367A3EA20B4434900FEC8E2 /* EmployeeItemViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeItemViewModeling.swift; sourceTree = "<group>"; };
+		2367A3EC20B4450000FEC8E2 /* EmployeesViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesViewModeling.swift; sourceTree = "<group>"; };
+		2367A3F020B4474C00FEC8E2 /* EmployeesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesViewModel.swift; sourceTree = "<group>"; };
 		26C59420ABAA28F161573FC9 /* Pods-EmployeesAnalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.release.xcconfig"; sourceTree = "<group>"; };
 		40ECEE000D9A4CF7874F8EE9 /* Pods-EmployeesAnalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.debug.xcconfig"; sourceTree = "<group>"; };
 		463D1D6820B1EC0700606ECC /* RootMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMenuView.swift; sourceTree = "<group>"; };
@@ -159,6 +169,8 @@
 				46B0DA2520B04244009F86D4 /* SigininViewModel.swift */,
 				46F738A320B3392A00B673C2 /* MenuViewModel.swift */,
 				4671C0EB20B3F7EE006493C5 /* ProfileViewModel.swift */,
+				2367A3E820B4431E00FEC8E2 /* EmployeeItemViewModel.swift */,
+				2367A3F020B4474C00FEC8E2 /* EmployeesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -253,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				46F7389E20B326A600B673C2 /* MenuItem.swift */,
+				2367A3E620B4410800FEC8E2 /* EmployeeItem.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -263,6 +276,8 @@
 				46B0DA1D20B03544009F86D4 /* SigninViewModeling.swift */,
 				46F738A120B338BA00B673C2 /* MenuViewModeling.swift */,
 				4671C0E920B3F6AE006493C5 /* ProfileViewModeling.swift */,
+				2367A3EA20B4434900FEC8E2 /* EmployeeItemViewModeling.swift */,
+				2367A3EC20B4450000FEC8E2 /* EmployeesViewModeling.swift */,
 			);
 			path = Abstract;
 			sourceTree = "<group>";
@@ -431,8 +446,10 @@
 			files = (
 				46B0DA2820B048DE009F86D4 /* StringExtensions.swift in Sources */,
 				46B0DA4520B1B84E009F86D4 /* UIControllerExtensions.swift in Sources */,
+				2367A3F120B4474C00FEC8E2 /* EmployeesViewModel.swift in Sources */,
 				46F738A420B3392A00B673C2 /* MenuViewModel.swift in Sources */,
 				46F738B020B35C3800B673C2 /* AccountServicing.swift in Sources */,
+				2367A3E720B4410800FEC8E2 /* EmployeeItem.swift in Sources */,
 				46B0DA4120B18224009F86D4 /* Constants.swift in Sources */,
 				46B0DA3820B172CF009F86D4 /* StorageKey.swift in Sources */,
 				46B0DA1C20B03503009F86D4 /* UIButtonExtensions.swift in Sources */,
@@ -440,11 +457,13 @@
 				46B0DA3F20B17EEA009F86D4 /* AuthenticationService.swift in Sources */,
 				463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */,
 				46B0DA4320B19E6C009F86D4 /* ContentType.swift in Sources */,
+				2367A3EB20B4434900FEC8E2 /* EmployeeItemViewModeling.swift in Sources */,
 				46B0DA3120B0B35F009F86D4 /* Network.swift in Sources */,
 				46F738AE20B35C1500B673C2 /* AccountService.swift in Sources */,
 				46F738AC20B350DD00B673C2 /* DefaultError.swift in Sources */,
 				46B0DA1E20B03544009F86D4 /* SigninViewModeling.swift in Sources */,
 				46B0DA2B20B0A21E009F86D4 /* Networking.swift in Sources */,
+				2367A3E920B4431E00FEC8E2 /* EmployeeItemViewModel.swift in Sources */,
 				46B0DA3320B16752009F86D4 /* SigninError.swift in Sources */,
 				46F738A220B338BA00B673C2 /* MenuViewModeling.swift in Sources */,
 				46F7389F20B326A600B673C2 /* MenuItem.swift in Sources */,
@@ -461,6 +480,7 @@
 				46B0DA3520B16A50009F86D4 /* ErrorProvider.swift in Sources */,
 				4671C0EC20B3F7EE006493C5 /* ProfileViewModel.swift in Sources */,
 				46B79C7E20AF53AB00EE37E7 /* AppDelegate.swift in Sources */,
+				2367A3ED20B4450000FEC8E2 /* EmployeesViewModeling.swift in Sources */,
 				46B0DA1720B01C00009F86D4 /* SigninView.swift in Sources */,
 				46B0DA2D20B0AA3B009F86D4 /* NetworkError.swift in Sources */,
 			);

@@ -7,89 +7,92 @@
 //
 
 import UIKit
+import ReactiveSwift
+import ReactiveCocoa
+import Foundation
 
 class EmployeesView: UITableViewController {
-
+    public var viewModel: EmployeesViewModeling?
+    let searchBar = UISearchBar()
+    var navigationData: Employee?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        setupSearchBar()
+        tableView.tableFooterView = UIView()
+        
+        bindView()
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    private func bindView() {
+        if let viewModel = viewModel {
+            viewModel.employeeItems.producer
+                .on(value: { _ in self.tableView.reloadData() })
+                .start()
+            viewModel.searchInput <~ searchBar.reactive.continuousTextValues
+                .throttle(0.5, on: QueueScheduler.main)
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        if let viewModel = viewModel {
+            return viewModel.employeeItems.value.count
+        }
         return 0
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+    
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeItem", for: indexPath) as! EmployeeItem
+        cell.viewModel = viewModel?.employeeItems.value[indexPath.row]
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationData = viewModel?.employeeItems.value[indexPath.row].employee
+        performSegue(withIdentifier: "showProfileViewEmployee", sender: nil)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showProfileViewEmployee" {
+            let nav = segue.destination as! UINavigationController
+            let profileView: ProfileView = nav.topViewController as! ProfileView
+            profileView.viewModel?.employee = navigationData
+        }
     }
-    */
+    
+    func setupSearchBar() {
+        
+        
+        searchBar.reactive.searchButtonClicked.observeValues { _ in
+            self.viewModel?.searchInput.value = self.searchBar.text
+            self.searchBar.endEditing(true)
+        }
+        searchBar.reactive.cancelButtonClicked.observeValues { _ in
+            self.viewModel?.searchInput.value = ""
+            self.searchBar.endEditing(true)
+        }
+        searchBar.searchBarStyle = UISearchBarStyle.minimal
+        searchBar.sizeToFit()
+        searchBar.placeholder = NSLocalizedString("Search", comment: "")
+        searchBar.heightAnchor.constraint(equalToConstant: 44.0).isActive = true
+        
+        let uiTextField = searchBar.value(forKey: "searchField") as? UITextField
+        uiTextField?.layer.cornerRadius = 8
+        uiTextField?.clipsToBounds = true
+        uiTextField?.font = UIFont(name: "HelveticaNeue", size: 16)
+        uiTextField?.layer.borderColor = AppColors.AlphaLight.cgColor
+        let attributedString = NSMutableAttributedString(string: uiTextField!.placeholder!)
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: AppColors.FieldPlaceholderColor, range: NSMakeRange(0, uiTextField!.placeholder!.count))
+        uiTextField?.attributedPlaceholder = attributedString
+        uiTextField?.layer.borderWidth = 1
+        let searchIcon = uiTextField?.leftView as! UIImageView;
+        searchIcon.image = UIImage(named: "searchSB")
+        searchIcon.image = searchIcon.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        searchIcon.tintColor = AppColors.SearchIconTint;
+        uiTextField?.leftView = searchIcon;
+        navigationItem.titleView = searchBar;
+    }
 
 }

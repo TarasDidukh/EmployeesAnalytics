@@ -23,7 +23,7 @@ class MenuView: UITableViewController {
         ("responsibilities", NSLocalizedString("Responsibilities", comment: ""), ""),
         ("logout", NSLocalizedString("LogOut", comment: ""), "showSigninView"),
     ]
-    private var previousIndex: NSIndexPath? = NSIndexPath(index: 0)
+    private var previousIndex: NSIndexPath?
     
     public var viewModel: MenuViewModeling?
     
@@ -78,11 +78,6 @@ class MenuView: UITableViewController {
         previousIndex = nil
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if self.userNameLabel.text != nil {
-            openProfile(())
-        }
-    }
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

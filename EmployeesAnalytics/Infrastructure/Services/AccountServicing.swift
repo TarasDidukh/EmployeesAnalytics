@@ -9,6 +9,9 @@ import Foundation
 import ReactiveSwift
 import Result
 
+
 protocol AccountServicing {
     func getProfile(withId id: String) -> SignalProducer<Employee?, DefaultError>
+    
+    func searchEmployees(input: String?) -> SignalProducer<[Employee], DefaultError>
 }

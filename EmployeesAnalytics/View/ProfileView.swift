@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveSwift
 import ReactiveCocoa
+import Result
 
 class ProfileView: UIViewController {
     @IBOutlet weak var avatarImage: UIImageView!
@@ -31,7 +32,7 @@ class ProfileView: UIViewController {
         
         avatarImage.layer.cornerRadius = 55
         avatarImage.layer.masksToBounds = true
-        
+        positionLabel.textColor = AppColors.GrayTextColor
         
         callButton.layer.cornerRadius = 25
         callButton.backgroundColor = AppColors.ButtonBackground
@@ -46,7 +47,7 @@ class ProfileView: UIViewController {
         if let viewModel = viewModel {
             viewModel.avatarUrl.producer
                 .on(value: { url in
-                    if let url = url {
+                    if let url = url, !url.isEmpty {
                         self.avatarImage.kf.setImage(with: URL(string: url))
                     }
                 }).start()
@@ -57,12 +58,23 @@ class ProfileView: UIViewController {
             skypeLabel.reactive.text <~ viewModel.skype
             phoneLabel.reactive.text <~ viewModel.phone
             
+            
+            
             if viewModel.IsMyProfile {
                 navigationItem.leftBarButtonItem = nil
                 callButton.isHidden = true
             } else {
                 navigationItem.rightBarButtonItem = nil
             }
+            
+            navigationItem.leftBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
+                return SignalProducer { observer, disposable in
+                    self.dismiss(animated: true, completion: nil)
+                    observer.sendCompleted()
+                }
+            }))
         }
     }
+    
+    
 }

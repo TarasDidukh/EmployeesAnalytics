@@ -107,7 +107,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="7lB-41-uxa">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="7lB-41-uxa">
                                     <rect key="frame" x="20" y="35" width="75" height="75"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -179,7 +179,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="422" y="473"/>
+            <point key="canvasLocation" x="482" y="515"/>
         </scene>
         <!--Root Menu View-->
         <scene sceneID="JMX-26-h7M">
@@ -202,23 +202,24 @@
             </objects>
             <point key="canvasLocation" x="927" y="-402"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Employees View-->
         <scene sceneID="KMH-Kw-PXh">
             <objects>
-                <tableViewController id="ynm-02-TqW" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6iu-vn-cb3">
+                <tableViewController id="ynm-02-TqW" customClass="EmployeesView" customModule="EmployeesAnalytics" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="73" estimatedRowHeight="73" sectionHeaderHeight="28" sectionFooterHeight="28" id="6iu-vn-cb3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="73" id="e32-aE-i1o">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmployeeItem" rowHeight="73" id="e32-aE-i1o" customClass="EmployeeItem" customModule="EmployeesAnalytics" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="73"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e32-aE-i1o" id="MDG-ua-7hR">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="72.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UMw-p4-cGO">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UMw-p4-cGO">
                                             <rect key="frame" x="20" y="16.5" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="1lI-Sw-5gr"/>
@@ -267,6 +268,11 @@
                                         <constraint firstItem="UMw-p4-cGO" firstAttribute="top" secondItem="MDG-ua-7hR" secondAttribute="topMargin" constant="5.4800000000000004" id="mk5-L5-wKZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImage" destination="UMw-p4-cGO" id="P2N-tY-Oon"/>
+                                    <outlet property="positionLabel" destination="ENM-NR-3am" id="hKU-Eb-q49"/>
+                                    <outlet property="userNameLabel" destination="OOM-Qo-Iqj" id="UGQ-Je-xQB"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -275,6 +281,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Dw3-8W-q9G"/>
+                    <connections>
+                        <segue destination="T54-wS-WYe" kind="show" identifier="showProfileViewEmployee" id="bil-i3-BWh"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3yu-wj-rh7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -288,7 +297,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LMR-v1-grQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LMR-v1-grQ">
                                 <rect key="frame" x="132" y="97" width="110" height="110"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="DM4-Tk-OcX"/>
@@ -464,7 +473,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ky1-mX-4Sa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1265" y="325"/>
+            <point key="canvasLocation" x="1193" y="627"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="al0-ac-ueK">
@@ -493,4 +502,7 @@
         <image name="telephone" width="29" height="29"/>
         <image name="vacation" width="29" height="29"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="bil-i3-BWh"/>
+    </inferredMetricsTieBreakers>
 </document>

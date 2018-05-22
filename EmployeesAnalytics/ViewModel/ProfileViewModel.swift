@@ -21,7 +21,7 @@ public final class ProfileViewModel : ProfileViewModeling {
     var IsMyProfile = false
     var employee: Employee? {
         didSet {
-            avatarUrl.value = employee?.avatar
+            avatarUrl.value = employee?.avatarFull
             userName.value = employee?.userName
             position.value = employee?.position
             email.value = employee?.email
