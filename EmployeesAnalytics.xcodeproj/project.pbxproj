@@ -45,6 +45,8 @@
 		46B79C8320AF53AB00EE37E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8120AF53AB00EE37E7 /* Main.storyboard */; };
 		46B79C8520AF53AD00EE37E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8420AF53AD00EE37E7 /* Assets.xcassets */; };
 		46B79C8820AF53AD00EE37E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B79C8620AF53AD00EE37E7 /* LaunchScreen.storyboard */; };
+		46D5788220B5E3E600E18B87 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5788120B5E3E600E18B87 /* EditProfileView.swift */; };
+		46D5788420B5E88100E18B87 /* FloatingTextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D5788320B5E88100E18B87 /* FloatingTextFieldExtension.swift */; };
 		46E57A8E20B4B6B6000700CA /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */; };
 		46F7389F20B326A600B673C2 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F7389E20B326A600B673C2 /* MenuItem.swift */; };
 		46F738A220B338BA00B673C2 /* MenuViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F738A120B338BA00B673C2 /* MenuViewModeling.swift */; };
@@ -100,6 +102,8 @@
 		46B79C8420AF53AD00EE37E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46B79C8720AF53AD00EE37E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		46B79C8920AF53AD00EE37E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46D5788120B5E3E600E18B87 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		46D5788320B5E88100E18B87 /* FloatingTextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTextFieldExtension.swift; sourceTree = "<group>"; };
 		46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		46F7389E20B326A600B673C2 /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		46F738A120B338BA00B673C2 /* MenuViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModeling.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 				463D1D6A20B1ECE100606ECC /* MenuView.swift */,
 				4671C0E720B3ED2D006493C5 /* ProfileView.swift */,
 				4671C0ED20B401BB006493C5 /* EmployeesView.swift */,
+				46D5788120B5E3E600E18B87 /* EditProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				46B0DA4420B1B84E009F86D4 /* UIControllerExtensions.swift */,
 				463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */,
 				46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */,
+				46D5788320B5E88100E18B87 /* FloatingTextFieldExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -461,6 +467,7 @@
 				46B0DA2B20B0A21E009F86D4 /* Networking.swift in Sources */,
 				2367A3E920B4431E00FEC8E2 /* EmployeeItemViewModel.swift in Sources */,
 				46B0DA3320B16752009F86D4 /* SigninError.swift in Sources */,
+				46D5788220B5E3E600E18B87 /* EditProfileView.swift in Sources */,
 				46F738A220B338BA00B673C2 /* MenuViewModeling.swift in Sources */,
 				46F7389F20B326A600B673C2 /* MenuItem.swift in Sources */,
 				46F738A620B34E9700B673C2 /* Employee.swift in Sources */,
@@ -480,6 +487,7 @@
 				46B79C7E20AF53AB00EE37E7 /* AppDelegate.swift in Sources */,
 				2367A3ED20B4450000FEC8E2 /* EmployeesViewModeling.swift in Sources */,
 				46B0DA1720B01C00009F86D4 /* SigninView.swift in Sources */,
+				46D5788420B5E88100E18B87 /* FloatingTextFieldExtension.swift in Sources */,
 				46B0DA2D20B0AA3B009F86D4 /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -634,6 +642,7 @@
 			baseConfigurationReference = 40ECEE000D9A4CF7874F8EE9 /* Pods-EmployeesAnalytics.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AJ47ZD78FD;
 				INFOPLIST_FILE = EmployeesAnalytics/Info.plist;
@@ -643,6 +652,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.education.EmployeesAnalytics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -653,6 +663,7 @@
 			baseConfigurationReference = 26C59420ABAA28F161573FC9 /* Pods-EmployeesAnalytics.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AJ47ZD78FD;
 				INFOPLIST_FILE = EmployeesAnalytics/Info.plist;
@@ -662,6 +673,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.education.EmployeesAnalytics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

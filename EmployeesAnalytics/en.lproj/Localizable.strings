@@ -23,6 +23,15 @@
 "Vacation" = "Vacation";
 "Responsibilities" = "Responsibilities";
 "LogOut" = "Log out";
+"Profile" = "Profile";
 
 "Search" = "Search";
 "EmptyEmployees" = "There are no results that match your search.";
+
+"Name" = "Name:";
+"LastName" = "Last name:";
+"Position" = "Position:";
+"EditPosition" = "Edit position";
+"Email" = "Email:";
+"Phone" = "Phone:";
+"Skype" = "Skype:";

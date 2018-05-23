@@ -19,7 +19,10 @@ class Employee: NSObject, Codable, NSCoding {
     
     var userName: String {
         get {
-            return firstName! + " " + lastName!
+            if firstName != nil && lastName != nil {
+                return firstName! + " " + lastName!
+            }
+            return ""
         }
     }
     

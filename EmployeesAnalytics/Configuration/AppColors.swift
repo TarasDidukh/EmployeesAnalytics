@@ -11,6 +11,7 @@ public struct AppColors
 {
     private init() { }
     
+    static let MainBlue = UIColor(red:0.25, green:0.58, blue:0.93, alpha:1)
     static let ButtonBackground = UIColor(red:0.25, green:0.58, blue:0.93, alpha:1)
     static let FieldLineColor = UIColor(red:0.78, green:0.79, blue:0.8, alpha:1)
     static let FieldPlaceholderColor = UIColor(red:0.78, green:0.79, blue:0.8, alpha:1)

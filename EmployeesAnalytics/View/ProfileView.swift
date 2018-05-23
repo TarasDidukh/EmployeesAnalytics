@@ -36,6 +36,7 @@ class ProfileView: UIViewController {
         navigationItem.leftBarButtonItem = nil
         callButton.isHidden = true
         navigationItem.rightBarButtonItem = nil
+        navigationItem.title = NSLocalizedString("Profile", comment: "")
         
         bindView()
         

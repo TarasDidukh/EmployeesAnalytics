@@ -31,21 +31,11 @@ class SigninView: UIViewController {
         super.viewDidLoad()
         bindView()
         
-        loginField.lineColor = AppColors.FieldLineColor
-        passwordField.lineColor = AppColors.FieldLineColor
+        loginField.config()
+        passwordField.config()
         passwordField.placeholder = NSLocalizedString("PasswordPlaceholder", comment: "")
         loginField.placeholder = NSLocalizedString("LoginPlaceholder", comment: "")
         loginButton.setTitle(NSLocalizedString("LoginTitle", comment: ""), for: .normal)
-        loginField.selectedLineColor = AppColors.FieldSelectedLineColor
-        passwordField.selectedLineColor = AppColors.FieldSelectedLineColor
-        loginField.placeHolderColor = AppColors.FieldPlaceholderColor
-        passwordField.placeHolderColor = AppColors.FieldPlaceholderColor
-        loginField.selectedPlaceHolderColor = AppColors.FieldSelectedPlaceholderColor
-        passwordField.selectedPlaceHolderColor = AppColors.FieldSelectedPlaceholderColor
-        loginField.errorTextColor = AppColors.FieldErrorColor
-        passwordField.errorLineColor = AppColors.FieldErrorColor
-        loginField.shakeLineWithError = false
-        passwordField.shakeLineWithError = false
         
         loginButton.layer.cornerRadius = 25
         loginButton.backgroundColor = AppColors.ButtonBackground
