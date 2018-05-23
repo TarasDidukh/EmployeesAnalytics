@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2365E45B20B57482008B8D53 /* ExternalAppChanneling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2365E45A20B57482008B8D53 /* ExternalAppChanneling.swift */; };
+		2365E45D20B574B4008B8D53 /* ExternalAppChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2365E45C20B574B4008B8D53 /* ExternalAppChannel.swift */; };
 		2367A3E720B4410800FEC8E2 /* EmployeeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3E620B4410800FEC8E2 /* EmployeeItem.swift */; };
 		2367A3E920B4431E00FEC8E2 /* EmployeeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3E820B4431E00FEC8E2 /* EmployeeItemViewModel.swift */; };
 		2367A3EB20B4434900FEC8E2 /* EmployeeItemViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367A3EA20B4434900FEC8E2 /* EmployeeItemViewModeling.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2365E45A20B57482008B8D53 /* ExternalAppChanneling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppChanneling.swift; sourceTree = "<group>"; };
+		2365E45C20B574B4008B8D53 /* ExternalAppChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalAppChannel.swift; sourceTree = "<group>"; };
 		2367A3E620B4410800FEC8E2 /* EmployeeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeItem.swift; sourceTree = "<group>"; };
 		2367A3E820B4431E00FEC8E2 /* EmployeeItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeItemViewModel.swift; sourceTree = "<group>"; };
 		2367A3EA20B4434900FEC8E2 /* EmployeeItemViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeItemViewModeling.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 				46B0DA3E20B17EEA009F86D4 /* AuthenticationService.swift */,
 				46F738AD20B35C1500B673C2 /* AccountService.swift */,
 				46F738AF20B35C3800B673C2 /* AccountServicing.swift */,
+				2365E45A20B57482008B8D53 /* ExternalAppChanneling.swift */,
+				2365E45C20B574B4008B8D53 /* ExternalAppChannel.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -314,7 +320,6 @@
 				46B79C7720AF53AB00EE37E7 /* Frameworks */,
 				46B79C7820AF53AB00EE37E7 /* Resources */,
 				689323BFEF09063FC385C840 /* [CP] Embed Pods Frameworks */,
-				3DAB58F4B4547FEAB951C10D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -373,21 +378,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3DAB58F4B4547FEAB951C10D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		689323BFEF09063FC385C840 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -404,6 +394,7 @@
 				"${BUILT_PRODUCTS_DIR}/SideMenuController/SideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -416,6 +407,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectStoryboard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -451,6 +443,7 @@
 				46B0DA4520B1B84E009F86D4 /* UIControllerExtensions.swift in Sources */,
 				2367A3F120B4474C00FEC8E2 /* EmployeesViewModel.swift in Sources */,
 				46F738A420B3392A00B673C2 /* MenuViewModel.swift in Sources */,
+				2365E45D20B574B4008B8D53 /* ExternalAppChannel.swift in Sources */,
 				46F738B020B35C3800B673C2 /* AccountServicing.swift in Sources */,
 				2367A3E720B4410800FEC8E2 /* EmployeeItem.swift in Sources */,
 				46B0DA4120B18224009F86D4 /* Constants.swift in Sources */,
@@ -475,6 +468,7 @@
 				465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */,
 				46E57A8E20B4B6B6000700CA /* UIViewExtensions.swift in Sources */,
 				4671C0EE20B401BB006493C5 /* EmployeesView.swift in Sources */,
+				2365E45B20B57482008B8D53 /* ExternalAppChanneling.swift in Sources */,
 				46B0DA2620B04244009F86D4 /* SigininViewModel.swift in Sources */,
 				4671C0E820B3ED2D006493C5 /* ProfileView.swift in Sources */,
 				46B0DA3D20B17EDC009F86D4 /* AuthenticationServicing.swift in Sources */,
@@ -641,6 +635,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AJ47ZD78FD;
 				INFOPLIST_FILE = EmployeesAnalytics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -659,6 +654,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AJ47ZD78FD;
 				INFOPLIST_FILE = EmployeesAnalytics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

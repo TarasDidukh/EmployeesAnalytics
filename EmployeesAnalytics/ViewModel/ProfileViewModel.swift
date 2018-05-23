@@ -18,7 +18,9 @@ public final class ProfileViewModel : ProfileViewModeling {
     var email = MutableProperty<String?>(nil)
     var phone = MutableProperty<String?>(nil)
     var skype = MutableProperty<String?>(nil)
-    var IsMyProfile = false
+    var IsMyProfile = MutableProperty<Bool?>(nil)
+    var Call: Action<(), (), NoError>?
+    let externalAppChannel: ExternalAppChanneling
     var employee: Employee? {
         didSet {
             avatarUrl.value = employee?.avatarFull
@@ -29,8 +31,19 @@ public final class ProfileViewModel : ProfileViewModeling {
             skype.value = employee?.skype
             
             if employee?.id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue) {
-                IsMyProfile = true
+                IsMyProfile.value = true
+            } else {
+                IsMyProfile.value = false
+
             }
         }
+    }
+    
+    init(externalAppChannel: ExternalAppChanneling) {
+        self.externalAppChannel = externalAppChannel
+        
+        Call = Action<(), (), NoError>(execute: { (index) in
+            return externalAppChannel.makeCall(self.phone.value)
+        })
     }
 }

@@ -22,12 +22,22 @@ class ProfileView: UIViewController {
     
     public var viewModel: ProfileViewModeling?
     
+    private var editButton: UIBarButtonItem?
+    private var backButton: UIBarButtonItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         avatarImage.image = UIImage(named: "noAvatar")
         avatarImage.tintColor = AppColors.MenuHeaderBackgroundColor
         
-         bindView()
+        editButton = navigationItem.rightBarButtonItem
+        backButton = navigationItem.leftBarButtonItem
+        navigationItem.leftBarButtonItem = nil
+        callButton.isHidden = true
+        navigationItem.rightBarButtonItem = nil
+        
+        bindView()
         
         
         avatarImage.layer.cornerRadius = 55
@@ -58,14 +68,25 @@ class ProfileView: UIViewController {
             skypeLabel.reactive.text <~ viewModel.skype
             phoneLabel.reactive.text <~ viewModel.phone
             
-            
-            
-            if viewModel.IsMyProfile {
-                navigationItem.leftBarButtonItem = nil
-                callButton.isHidden = true
-            } else {
-                navigationItem.rightBarButtonItem = nil
+//            callButton.reactive.isEnabled <~ viewModel.Call!.isExecuting.signal.delay(1, on: QueueScheduler.main).map({
+//                !$0
+//            })
+            callButton.reactive.controlEvents(.touchUpInside).signal.throttle(1.5, on: QueueScheduler.main).observeValues { _ in
+                if !viewModel.Call!.isExecuting.value {
+                    viewModel.Call!.apply().start()
+                }
             }
+//                { _ in
+//                self.callButton.isEnabled = false
+//            }
+            viewModel.IsMyProfile.producer.observe(on: UIScheduler()).on { (value) in
+                if value == true {
+                    self.navigationItem.rightBarButtonItem = self.editButton
+                } else if value == false {
+                    self.navigationItem.leftBarButtonItem = self.backButton
+                    self.callButton.isHidden = false
+                }
+            }.start()
             
             navigationItem.leftBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
                 return SignalProducer { observer, disposable in

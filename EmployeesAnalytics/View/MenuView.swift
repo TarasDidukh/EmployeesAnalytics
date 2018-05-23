@@ -108,6 +108,7 @@ class MenuView: UITableViewController {
         }
         if let viewModel = viewModel, indexPath.row == 6 {
             viewModel.Signout?.apply().start()
+            ImageCache.default.clearDiskCache()
         }
         previousIndex = indexPath as NSIndexPath?
         sideMenuController?.toggle()

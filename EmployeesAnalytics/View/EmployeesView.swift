@@ -11,8 +11,9 @@ import ReactiveSwift
 import ReactiveCocoa
 import Foundation
 import Result
+import SwipeCellKit
 
-class EmployeesView: UITableViewController {
+class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
     public var viewModel: EmployeesViewModeling?
     var searchBar = UISearchBar()
     var navigationData: Employee?
@@ -40,7 +41,6 @@ class EmployeesView: UITableViewController {
             viewModel.searchInput <~ searchBar.reactive.continuousTextValues
                 .throttle(0.5, on: QueueScheduler.main)
             
-            let topSpace: CGFloat = 100
             viewModel.Search?.isExecuting.producer.observe(on: UIScheduler()).on(value: { (isExecuting) in
                 if viewModel.employeeItems.value.count == 0 {
                     if isExecuting {
@@ -68,13 +68,29 @@ class EmployeesView: UITableViewController {
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EmployeeItem", for: indexPath) as! EmployeeItem
         cell.viewModel = viewModel?.employeeItems.value[indexPath.row]
+        cell.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+            self.viewModel?.Call?.apply(indexPath.row).start(on: UIScheduler()).start()
+        }
+        
+        deleteAction.image = UIImage(named: "telephone")
+        deleteAction.backgroundColor = AppColors.ButtonBackground
+        deleteAction.hidesWhenSelected = true
+        
+        return [deleteAction]
     }
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationData = viewModel?.employeeItems.value[indexPath.row].employee
         performSegue(withIdentifier: "showProfileViewEmployee", sender: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

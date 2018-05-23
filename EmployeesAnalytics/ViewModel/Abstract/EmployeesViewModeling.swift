@@ -13,6 +13,7 @@ import Result
 
 protocol EmployeesViewModeling {
     var Search: Action<(), [Employee], DefaultError>? { get set }
+    var Call: Action<Int, (), NoError>? { get set }
     var searchInput: MutableProperty<String?> { get }
     var employeeItems: MutableProperty<[EmployeeItemViewModeling]> { get }
     var defaultError: MutableProperty<DefaultError?> { get }

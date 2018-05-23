@@ -11,6 +11,7 @@ PODS:
   - Swinject (2.4.0)
   - SwinjectStoryboard (1.2.1):
     - Swinject (~> 2.3)
+  - SwipeCellKit (2.3.2)
 
 DEPENDENCIES:
   - ACFloatingTextfield-Swift
@@ -20,6 +21,20 @@ DEPENDENCIES:
   - SideMenuController
   - Swinject
   - SwinjectStoryboard
+  - SwipeCellKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ACFloatingTextfield-Swift
+    - Alamofire
+    - Kingfisher
+    - ReactiveCocoa
+    - ReactiveSwift
+    - Result
+    - SideMenuController
+    - Swinject
+    - SwinjectStoryboard
+    - SwipeCellKit
 
 SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: df075d5ed5d441d8603f985fc106ec7ebe0c673f
@@ -31,7 +46,8 @@ SPEC CHECKSUMS:
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
   Swinject: a1364b0f66c2736bb03c1c7cab54809e16df25da
   SwinjectStoryboard: de60d1d30fbf442fe90fc5c31d9fff89cf3ef64f
+  SwipeCellKit: 52b160ea820245eb972b2eca270cb3a6f68e33af
 
-PODFILE CHECKSUM: a8edef9fb0d3e6fce19d41e162861a6cbcc9cf62
+PODFILE CHECKSUM: 5b8dc2640b43b290125ee697228011632609d840
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2

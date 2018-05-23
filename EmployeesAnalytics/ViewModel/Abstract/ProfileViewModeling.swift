@@ -18,6 +18,7 @@ protocol ProfileViewModeling {
     var email: MutableProperty<String?> { get }
     var phone: MutableProperty<String?> { get }
     var skype: MutableProperty<String?> { get }
-    var IsMyProfile: Bool { get }
+    var IsMyProfile: MutableProperty<Bool?> { get }
     var employee: Employee? { get set }
+    var Call: Action<(), (), NoError>? { get set }
 }

@@ -8,8 +8,11 @@
 
 import UIKit
 import Kingfisher
+import SwipeCellKit
 
-class EmployeeItem: UITableViewCell {
+extension UIImageView: Placeholder {}
+
+class EmployeeItem: SwipeTableViewCell {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -20,11 +23,14 @@ class EmployeeItem: UITableViewCell {
             positionLabel.text = viewModel?.position
             if let viewModel = viewModel, viewModel.avatar != nil, !viewModel.avatar!.isEmpty {
                 let processor = RoundCornerImageProcessor(cornerRadius: 20)
-                self.avatarImage.kf.setImage(with: URL(string: viewModel.avatar!), options: [.processor(processor)])
+                let placeholder = UIImageView(image: UIImage(named: "refresh"))
+                placeholder.tintColor = AppColors.GrayIconTint
+                self.avatarImage.kf.setImage(with: URL(string: viewModel.avatar!), placeholder: placeholder, options: [.processor(processor)])
+                
             }
             else {
                 avatarImage.image = UIImage(named: "noAvatar")
-                avatarImage.tintColor = AppColors.MenuHeaderBackgroundColor
+                
             }
         }
     }

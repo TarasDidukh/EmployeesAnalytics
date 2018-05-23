@@ -43,14 +43,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AccountService(network: r.resolve(Networking.self)!)
         }
         
-        container.register(ProfileViewModeling.self) { _ in ProfileViewModel() }
+        container.register(ExternalAppChanneling.self) { _ in ExternalAppChannel() }
+        
+        container.register(ProfileViewModeling.self) { r in
+            ProfileViewModel(externalAppChannel: r.resolve(ExternalAppChanneling.self)!)
+            
+        }
         
         container.register(SigninViewModeling.self) { r in
             SigininViewModel(authenticationService: r.resolve(AuthenticationServicing.self)!)
         }
         
         container.register(EmployeesViewModeling.self) { r in
-            EmployeesViewModel(accountService: r.resolve(AccountServicing.self)!)
+            EmployeesViewModel(accountService: r.resolve(AccountServicing.self)!, externalAppChannel: r.resolve(ExternalAppChanneling.self)!)
         }
         
         container.register(MenuViewModeling.self) { r in

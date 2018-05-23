@@ -12,11 +12,13 @@ import Result
 
 public final class EmployeesViewModel : EmployeesViewModeling {
     var Search: Action<(), [Employee], DefaultError>?
+    var Call: Action<Int, (), NoError>?
     var searchInput = MutableProperty<String?>(nil)
     var employeeItems = MutableProperty<[EmployeeItemViewModeling]>([])
     var defaultError = MutableProperty<DefaultError?>(nil)
     
     let accountService: AccountServicing
+    let externalAppChannel: ExternalAppChanneling
     
     var disposeSearch: Disposable?
     
@@ -24,11 +26,15 @@ public final class EmployeesViewModel : EmployeesViewModeling {
         return EmployeeItemViewModel(avatar: employee.avatar, userName: employee.userName, position: employee.position, employee: employee) as EmployeeItemViewModeling
     }
     
-    init(accountService: AccountServicing) {
+    init(accountService: AccountServicing, externalAppChannel: ExternalAppChanneling) {
         self.accountService = accountService
+        self.externalAppChannel = externalAppChannel
         
         Search = Action<(), [Employee], DefaultError>(execute: { _ in
             return accountService.searchEmployees(input: self.searchInput.value)
+        })
+        Call = Action<Int, (), NoError>(execute: { (index) in
+            return externalAppChannel.makeCall(self.employeeItems.value[index].employee?.phoneNumber)
         })
         
         Search?.values.observe(on: UIScheduler()).observeResult({ (result) in

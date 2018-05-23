@@ -13,5 +13,6 @@ target 'EmployeesAnalytics' do
   pod 'ACFloatingTextfield-Swift'
   pod 'SideMenuController'
   pod 'Kingfisher'
+  pod 'SwipeCellKit'
 
 end
