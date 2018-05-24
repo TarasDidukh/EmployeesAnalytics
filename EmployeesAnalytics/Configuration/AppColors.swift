@@ -27,4 +27,5 @@ public struct AppColors
     static let AlphaLight = UIColor(red: 233/255, green: 233/255, blue:233/255, alpha:1);
     static let SearchIconTint = UIColor(red: 151/255, green: 151/255, blue:151/255, alpha:1);
     static let GrayIconTint = UIColor(red:0.56, green:0.58, blue:0.6, alpha:1)
+    static let BorderImageColor = UIColor(red:0.59, green:0.59, blue:0.59, alpha:1)
 }

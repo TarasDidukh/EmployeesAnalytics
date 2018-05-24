@@ -23,7 +23,7 @@ public final class EmployeesViewModel : EmployeesViewModeling {
     var disposeSearch: Disposable?
     
     func convertToEmployeeItem(_ employee: Employee) -> EmployeeItemViewModeling {
-        return EmployeeItemViewModel(avatar: employee.avatar, userName: employee.userName, position: employee.position, employee: employee) as EmployeeItemViewModeling
+        return EmployeeItemViewModel(avatar: employee.avatar, userName: employee.userName, position: employee.position, employee: employee)
     }
     
     init(accountService: AccountServicing, externalAppChannel: ExternalAppChanneling) {

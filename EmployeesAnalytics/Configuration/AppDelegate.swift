@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             c.viewModel = r.resolve(EmployeesViewModeling.self)
         }
         
+        container.storyboardInitCompleted(PickPositionsView.self){ r, c in
+            c.viewModel = r.resolve(PickPositionsViewModeling.self)
+        }
+        
         container.register(Networking.self) { _ in Network() }
         
         container.register(AuthenticationServicing.self) { r in
@@ -47,6 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         container.register(ProfileViewModeling.self) { r in
             ProfileViewModel(externalAppChannel: r.resolve(ExternalAppChanneling.self)!)
+        }
+        
+        container.register(PickPositionsViewModeling.self) { r in
+            PickPositionsViewModel(accountService: r.resolve(AccountServicing.self)!)
             
         }
         

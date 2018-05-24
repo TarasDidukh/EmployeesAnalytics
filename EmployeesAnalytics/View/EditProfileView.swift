@@ -51,6 +51,14 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }))
         
+        navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
+            return SignalProducer { observer, disposable in
+                self.performSegue(withIdentifier: "showPickPositions", sender: nil)
+            }
+        }))
+        
+        
+        
         containerScroll.bounces = false
         
         nameField.placeholder = NSLocalizedString("Name", comment: "")
@@ -76,6 +84,7 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         isInit = true
         positionTable.bounces = false
+        
         //self.positionTable.contentInset = UIEdgeInsetsMake(0, -15, 0, 0);
         
         NotificationCenter.default.addObserver(self,

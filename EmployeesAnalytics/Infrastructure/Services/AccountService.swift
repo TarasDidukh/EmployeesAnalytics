@@ -71,4 +71,34 @@ public final class AccountService : AccountServicing {
             }).start()
         }
     }
+    
+    func getAllRoles() -> SignalProducer<[String], DefaultError> {
+        return SignalProducer { observer, disposable in
+            let url = "\(Constants.BaseUrl)api/role/GetRoles"
+            
+            struct RolesResult: Codable {
+                var data: [String]
+                enum CodingKeys: String, CodingKey {
+                    case data
+                }
+            }
+            
+            let producer: SignalProducer<RolesResult, DefaultError> = self.network.get(url, parameters: nil)
+            producer.on(
+                failed: { (defaultError) in
+                    observer.send(error: defaultError)
+                    observer.sendCompleted()
+            }, completed: {
+                observer.sendCompleted()
+            }, interrupted: {
+                observer.sendCompleted()
+            }, terminated: {
+                observer.sendCompleted()
+            }, value: { (result) in
+                
+                observer.send(value: result.data)
+                observer.sendCompleted()
+            }).start()
+        }
+    }
 }

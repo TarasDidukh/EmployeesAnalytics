@@ -27,6 +27,7 @@
 
 "Search" = "Search";
 "EmptyEmployees" = "There are no results that match your search.";
+"PositionsEmpty" = "There are no positions available.";
 
 "Name" = "Name:";
 "LastName" = "Last name:";
