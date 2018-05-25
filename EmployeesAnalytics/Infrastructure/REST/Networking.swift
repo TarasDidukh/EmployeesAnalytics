@@ -15,5 +15,7 @@ protocol Networking {
     func post(_ url: String, parameters: [String: String]?) -> SignalProducer<(), NoError>
     
     func get<TResponse: Codable, TError: ErrorProvider>(_ url: String, parameters: [String: String]?) -> SignalProducer<TResponse, TError>
+    
+    func uploadImage<TResponse: Codable, TError: ErrorProvider>(_ url: String, data: Data ) -> SignalProducer<TResponse, TError>
 }
 

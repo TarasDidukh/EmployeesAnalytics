@@ -62,6 +62,7 @@ class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
         if let viewModel = viewModel {
             return viewModel.employeeItems.value.count
         }
+        
         return 0
     }
     

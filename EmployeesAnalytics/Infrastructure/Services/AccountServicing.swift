@@ -15,5 +15,7 @@ protocol AccountServicing {
     
     func searchEmployees(input: String?) -> SignalProducer<[Employee], DefaultError>
     
-     func getAllRoles() -> SignalProducer<[String], DefaultError>
+    func getAllRoles() -> SignalProducer<[String], DefaultError>
+    
+    func uploadAvatar(data: Data) -> SignalProducer<[String], DefaultError>
 }

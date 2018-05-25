@@ -96,6 +96,29 @@ public final class Network : Networking {
         }
     }
     
+    func uploadImage<TResponse: Codable, TError: ErrorProvider>(_ url: String, data: Data ) -> SignalProducer<TResponse, TError> {
+        return SignalProducer { observer, disposable in
+            var headers: [String: String]? = nil
+            if let authHeader = self.InitAuth() {
+                headers = [authHeader.0 : authHeader.1]
+            }
+            Alamofire.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(data, withName: "fileset",fileName: "file.jpg", mimeType: "image/jpg")
+            },to: url, headers: headers)
+            { (result) in
+                switch result {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        self.handleResult(observer, response)
+                    }
+                    
+                case .failure(let error):
+                    observer.send(error: TError(error: error as NSError))
+                }
+            }
+        }
+    }
+    
     func handleResult<TResponse: Codable, TError: ErrorProvider>(_ observer: Signal<TResponse, TError>.Observer, _ response: DataResponse<Any>) {
         switch response.result {
         case .success:

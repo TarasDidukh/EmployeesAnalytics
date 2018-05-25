@@ -51,7 +51,7 @@ public final class AccountService : AccountServicing {
     func searchEmployees(input: String?) -> SignalProducer<[Employee], DefaultError> {
         return SignalProducer { observer, disposable in
             let parameters : [String: String] = ["UserName": input ?? ""]
-            let url = "\(Constants.BaseUrl)api/users/GetUsersByUserName"
+            let url = "\(Constants.BaseUrl)api/users/getUsersbyUserName"
             
             let producer: SignalProducer<[Employee], DefaultError> = self.network.get(url, parameters: parameters)
             producer.on(
@@ -100,5 +100,10 @@ public final class AccountService : AccountServicing {
                 observer.sendCompleted()
             }).start()
         }
+    }
+    
+    func uploadAvatar(data: Data) -> SignalProducer<UploadedPhoto, DefaultError> {
+        let url = "\(Constants.BaseUrl)api/v1/upload/upload/photo"
+        return network.uploadImage(url, data: data)
     }
 }

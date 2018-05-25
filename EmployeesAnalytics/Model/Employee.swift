@@ -40,6 +40,9 @@ class Employee: NSObject, Codable, NSCoding {
             if let url = avatarURL, !url.isEmpty {
                 return Constants.ImageStorageUrl + url;
             }
+            else if let url = croppedAvatarURL, !url.isEmpty {
+                return Constants.ImageStorageUrl + url;
+            }
             return ""
         }
     }
