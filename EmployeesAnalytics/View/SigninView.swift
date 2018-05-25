@@ -19,7 +19,6 @@ class SigninView: UIViewController {
     @IBOutlet weak var logoTopCnstr: NSLayoutConstraint!
     @IBOutlet weak var logoHeightCnstr: NSLayoutConstraint!
     @IBOutlet weak var logoWidthCnstr: NSLayoutConstraint!
-    private var isInit = false
     private var isKeyboardShown = false;
     private var logoTopOrigin: CGFloat = 0
     private var loginBottomOrigin: CGFloat = 0
@@ -55,7 +54,6 @@ class SigninView: UIViewController {
                                                object: nil)
         logoTopOrigin = logoTopCnstr.constant
         loginBottomOrigin = loginBottomCnstr.constant
-        isInit = true;
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -94,24 +92,24 @@ class SigninView: UIViewController {
         
         if let viewModel = viewModel {
             viewModel.email <~ loginField.reactive.textValues
-            viewModel.email.result.producer.on { result in
-                let error = self.isInit ? result.error?.reason : ""
+            viewModel.email.result.signal.observeValues { result in
+                let error = result.error?.reason
                 if (error ?? "").isEmpty {
                     self.loginField.hideError()
                 } else {
                     self.loginField.showErrorWithText(errorText: error!)
                 }
-            }.start()
+            }
             
             viewModel.password <~ passwordField.reactive.textValues
-            viewModel.password.result.producer.on { result in
-                let error = self.isInit ? result.error?.reason : ""
+            viewModel.password.result.signal.observeValues { result in
+                let error = result.error?.reason
                 if (error ?? "").isEmpty {
                     self.passwordField.hideError()
                 } else {
                     self.passwordField.showErrorWithText(errorText: error!)
                 }
-            }.start()
+            }
             
             viewModel.signinError.producer
                 .on(value: { error in

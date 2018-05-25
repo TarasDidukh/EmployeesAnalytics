@@ -97,6 +97,16 @@ class ProfileView: UIViewController {
             }))
         }
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showEditProfileView" {
+            let nav = segue.destination as! UINavigationController
+            let editProfileView: EditProfileView = nav.topViewController as! EditProfileView
+            if let employee = viewModel?.employee {
+                editProfileView.viewModel?.employee = employee
+            }
+        }
+    }
     
     
 }

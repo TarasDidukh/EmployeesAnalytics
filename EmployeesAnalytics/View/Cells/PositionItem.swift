@@ -13,14 +13,20 @@ import ReactiveCocoa
 class PositionItem: UITableViewCell {
     @IBOutlet weak var checkmarkIcon: UIImageView!
     @IBOutlet weak var positionNameLabel: UILabel!
+    var disposeObserver: Disposable?
     
     var viewModel: PositionItemViewModeling? {
         didSet {
             if let viewModel = viewModel {
                 positionNameLabel.text = viewModel.name
-                checkmarkIcon.reactive.tintColor <~ viewModel.isSelected.map({ (value) -> UIColor in
-                    return value ? AppColors.MainBlue : UIColor.white
-                })
+                disposeObserver?.dispose()
+                
+                disposeObserver = viewModel.isSelected.producer.observe(on: UIScheduler()).on { (value) in
+                    self.checkmarkIcon.tintColor = value ? AppColors.MainBlue : UIColor.white
+                }.start()
+//                checkmarkIcon.reactive.tintColor <~ viewModel.isSelected.map({ (value) -> UIColor in
+//                    return value ? AppColors.MainBlue : UIColor.white
+//                })
             }
         }
     }
@@ -32,7 +38,7 @@ class PositionItem: UITableViewCell {
         checkmarkIcon.layer.borderColor = AppColors.BorderImageColor.cgColor
         checkmarkIcon.layer.borderWidth = 1
         checkmarkIcon.image = UIImage(named: "checkmark")
-        checkmarkIcon.tintColor = AppColors.MainBlue
+        checkmarkIcon.tintColor = UIColor.white
     }
 
 }
