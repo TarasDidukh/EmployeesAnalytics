@@ -24,6 +24,10 @@
 		463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6820B1EC0700606ECC /* RootMenuView.swift */; };
 		463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6A20B1ECE100606ECC /* MenuView.swift */; };
 		463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */; };
+		46577A9520B7DF3F0022922B /* EditProfileViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46577A9420B7DF3F0022922B /* EditProfileViewModeling.swift */; };
+		46577A9720B7E0580022922B /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46577A9620B7E0580022922B /* EditProfileViewModel.swift */; };
+		46577A9C20B7E7610022922B /* ResultViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46577A9B20B7E7610022922B /* ResultViewDelegate.swift */; };
+		46577A9E20B7FAAA0022922B /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46577A9D20B7FAAA0022922B /* UIImageExtensions.swift */; };
 		465ED31720AF5647006DE217 /* SwinjectStoryboard+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */; };
 		4671C0E820B3ED2D006493C5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671C0E720B3ED2D006493C5 /* ProfileView.swift */; };
 		4671C0EA20B3F6AE006493C5 /* ProfileViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4671C0E920B3F6AE006493C5 /* ProfileViewModeling.swift */; };
@@ -85,6 +89,10 @@
 		463D1D6820B1EC0700606ECC /* RootMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMenuView.swift; sourceTree = "<group>"; };
 		463D1D6A20B1ECE100606ECC /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
+		46577A9420B7DF3F0022922B /* EditProfileViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModeling.swift; sourceTree = "<group>"; };
+		46577A9620B7E0580022922B /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		46577A9B20B7E7610022922B /* ResultViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewDelegate.swift; sourceTree = "<group>"; };
+		46577A9D20B7FAAA0022922B /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		465ED31620AF5647006DE217 /* SwinjectStoryboard+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwinjectStoryboard+Setup.swift"; sourceTree = "<group>"; };
 		4671C0E720B3ED2D006493C5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4671C0E920B3F6AE006493C5 /* ProfileViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModeling.swift; sourceTree = "<group>"; };
@@ -141,6 +149,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46577A9820B7E71D0022922B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				46577A9B20B7E7610022922B /* ResultViewDelegate.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		465ED31420AF55D1006DE217 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +216,7 @@
 				2367A3F020B4474C00FEC8E2 /* EmployeesViewModel.swift */,
 				2369969A20B70A20002BD37E /* PositionItemViewModel.swift */,
 				236996A020B710F1002BD37E /* PickPositionViewModel.swift */,
+				46577A9620B7E0580022922B /* EditProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -222,6 +239,7 @@
 				463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */,
 				46E57A8D20B4B6B6000700CA /* UIViewExtensions.swift */,
 				46D5788320B5E88100E18B87 /* FloatingTextFieldExtension.swift */,
+				46577A9D20B7FAAA0022922B /* UIImageExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,6 +300,7 @@
 				46B0DA3620B172B2009F86D4 /* Enum */,
 				465ED31A20AF57CE006DE217 /* Model */,
 				465ED31D20AF57FB006DE217 /* Infrastructure */,
+				46577A9820B7E71D0022922B /* Helpers */,
 				465ED31B20AF57D6006DE217 /* View */,
 				465ED31C20AF57E2006DE217 /* ViewModel */,
 				46B0DA1A20B034D0009F86D4 /* Extensions */,
@@ -314,6 +333,7 @@
 				2367A3EC20B4450000FEC8E2 /* EmployeesViewModeling.swift */,
 				2369969820B709B5002BD37E /* PositionItemViewModeling.swift */,
 				2369969E20B70B9C002BD37E /* PickPositionsViewModeling.swift */,
+				46577A9420B7DF3F0022922B /* EditProfileViewModeling.swift */,
 			);
 			path = Abstract;
 			sourceTree = "<group>";
@@ -492,6 +512,7 @@
 				46B0DA3320B16752009F86D4 /* SigninError.swift in Sources */,
 				46D5788220B5E3E600E18B87 /* EditProfileView.swift in Sources */,
 				46F738A220B338BA00B673C2 /* MenuViewModeling.swift in Sources */,
+				46577A9C20B7E7610022922B /* ResultViewDelegate.swift in Sources */,
 				46F7389F20B326A600B673C2 /* MenuItem.swift in Sources */,
 				46F738A620B34E9700B673C2 /* Employee.swift in Sources */,
 				46B0DA3A20B17D33009F86D4 /* AuthInfo.swift in Sources */,
@@ -507,9 +528,11 @@
 				46B0DA3D20B17EDC009F86D4 /* AuthenticationServicing.swift in Sources */,
 				4671C0EA20B3F6AE006493C5 /* ProfileViewModeling.swift in Sources */,
 				463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */,
+				46577A9720B7E0580022922B /* EditProfileViewModel.swift in Sources */,
 				46B0DA1920B01CEE009F86D4 /* AppColors.swift in Sources */,
 				46B0DA3520B16A50009F86D4 /* ErrorProvider.swift in Sources */,
 				4671C0EC20B3F7EE006493C5 /* ProfileViewModel.swift in Sources */,
+				46577A9E20B7FAAA0022922B /* UIImageExtensions.swift in Sources */,
 				2369969B20B70A20002BD37E /* PositionItemViewModel.swift in Sources */,
 				46B79C7E20AF53AB00EE37E7 /* AppDelegate.swift in Sources */,
 				2369969920B709B5002BD37E /* PositionItemViewModeling.swift in Sources */,
@@ -517,6 +540,7 @@
 				46B0DA1720B01C00009F86D4 /* SigninView.swift in Sources */,
 				46D5788420B5E88100E18B87 /* FloatingTextFieldExtension.swift in Sources */,
 				46B0DA2D20B0AA3B009F86D4 /* NetworkError.swift in Sources */,
+				46577A9520B7DF3F0022922B /* EditProfileViewModeling.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             c.viewModel = r.resolve(ProfileViewModeling.self)
         }
         
+        container.storyboardInitCompleted(EditProfileView.self){ r, c in
+            c.viewModel = r.resolve(EditProfileViewModeling.self)
+        }
+        
         container.storyboardInitCompleted(EmployeesView.self){ r, c in
             c.viewModel = r.resolve(EmployeesViewModeling.self)
         }
@@ -51,6 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         container.register(ProfileViewModeling.self) { r in
             ProfileViewModel(externalAppChannel: r.resolve(ExternalAppChanneling.self)!)
+        }
+        
+        container.register(EditProfileViewModeling.self) { r in
+            EditProfileViewModel(accountService: r.resolve(AccountServicing.self)!)
         }
         
         container.register(PickPositionsViewModeling.self) { r in

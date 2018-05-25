@@ -74,6 +74,12 @@ public final class AccountService : AccountServicing {
     
     func getAllRoles() -> SignalProducer<[String], DefaultError> {
         return SignalProducer { observer, disposable in
+            if let roles = UserDefaults.standard.value(forKey: StorageKey.AllRoles.rawValue) as? [String] {
+                observer.send(value: roles)
+                observer.sendCompleted()
+                return;
+            }
+            
             let url = "\(Constants.BaseUrl)api/role/GetRoles"
             
             struct RolesResult: Codable {
@@ -95,7 +101,9 @@ public final class AccountService : AccountServicing {
             }, terminated: {
                 observer.sendCompleted()
             }, value: { (result) in
-                
+                if !result.data.isEmpty {
+                    UserDefaults.standard.set(result.data, forKey: StorageKey.AllRoles.rawValue)
+                }
                 observer.send(value: result.data)
                 observer.sendCompleted()
             }).start()

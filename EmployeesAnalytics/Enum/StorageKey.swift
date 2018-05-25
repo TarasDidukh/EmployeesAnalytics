@@ -11,4 +11,5 @@ enum StorageKey : String {
     case UserEmail
     case UserId
     case UserInfo
+    case AllRoles
 }

@@ -13,8 +13,16 @@
 "LoginIncorrect" = "Incorrect format.";
 "UserNotExist" = "Login or Password is incorrect, try again.";
 
+"NameEmpty" = "Name is required.";
+"LastNameEmpty"= "Last Name is required.";
+"EmailEmpty"= "Email is required.";
+
 "NoConnection" = "Check your network connection and try again.";
 "Unknown" = "An unknown network error has occured.";
+
+"FromGallery" = "From gallery";
+"FromCamera" = "From camera";
+"Cancel" = "Cancel";
 
 "Employees" = "Employees";
 "Dasboard" = "Dasboard";
@@ -36,3 +44,6 @@
 "Email" = "Email:";
 "Phone" = "Phone:";
 "Skype" = "Skype:";
+
+"AddPosition" = "Add position";
+"ProfileEdit" = "Profile edit";

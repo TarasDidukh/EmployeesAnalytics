@@ -12,9 +12,10 @@ import ReactiveSwift
 import Result
 import ReactiveCocoa
 
-class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDelegate, ResultViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var pickPhotoButton: UIView!
+    @IBOutlet weak var pickPhotoIcon: UIImageView!
     @IBOutlet weak var nameField: ACFloatingTextfield!
     @IBOutlet weak var lastNameField: ACFloatingTextfield!
     
@@ -34,13 +35,23 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     private var isInit = false
     
+    let picker = UIImagePickerController()
+
+    
+    public var viewModel: EditProfileViewModeling?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindView()
         avatarImage.tintColor = AppColors.MenuHeaderBackgroundColor
         avatarImage.layer.cornerRadius = 55
-        avatarImage.layer.masksToBounds = true
+        avatarImage.layer.masksToBounds = false
+        avatarImage.clipsToBounds = true
+
+
         pickPhotoButton.layer.cornerRadius = 14
         pickPhotoButton.layer.masksToBounds = true
+        pickPhotoIcon.tintColor = UIColor.white
         positionTable.delegate = self
         positionTable.dataSource = self
         
@@ -51,13 +62,14 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }))
         
-        navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
-            return SignalProducer { observer, disposable in
-                self.performSegue(withIdentifier: "showPickPositions", sender: nil)
-            }
-        }))
+//        navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
+//            return SignalProducer { observer, disposable in
+//                self.performSegue(withIdentifier: "showPickPositions", sender: nil)
+//                observer.sendCompleted()
+//            }
+//        }))
         
-        
+        navigationItem.title = NSLocalizedString("ProfileEdit", comment: "")
         
         containerScroll.bounces = false
         
@@ -85,6 +97,23 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
         isInit = true
         positionTable.bounces = false
         
+        let panTable = UITapGestureRecognizer(target: self, action: #selector(self.tapPositionTable))
+        panTable.numberOfTapsRequired = 1
+        
+        
+        positionTable.addGestureRecognizer(panTable)
+        
+        let panAvatar = UITapGestureRecognizer(target: self, action: #selector(self.tapAvatar))
+        panAvatar.numberOfTapsRequired = 1
+        let panAvatarImage = UITapGestureRecognizer(target: self, action: #selector(self.tapAvatar))
+        panAvatarImage.numberOfTapsRequired = 1
+        avatarImage.addGestureRecognizer(panAvatarImage)
+        avatarImage.isUserInteractionEnabled = true
+        pickPhotoButton.addGestureRecognizer(panAvatar)
+        
+        
+        positionTable.addGestureRecognizer(panTable)
+        
         //self.positionTable.contentInset = UIEdgeInsetsMake(0, -15, 0, 0);
         
         NotificationCenter.default.addObserver(self,
@@ -97,6 +126,123 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
                                                name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
         
+    }
+    
+    func send(result: Any) {
+        if let positions = result as? [String] {
+            viewModel?.positions.value = positions
+        }
+    }
+    
+    func bindView() {
+        if let viewModel = viewModel {
+            nameField.reactive.text <~ viewModel.name
+            viewModel.name <~ nameField.reactive.textValues
+            lastNameField.reactive.text <~ viewModel.lastName
+            viewModel.lastName <~ lastNameField.reactive.textValues
+            emailField.reactive.text <~ viewModel.email
+            viewModel.email <~ emailField.reactive.textValues
+            phoneField.reactive.text <~ viewModel.phone
+            viewModel.phone <~ phoneField.reactive.textValues
+            skypeField.reactive.text <~ viewModel.skype
+            viewModel.skype <~ skypeField.reactive.textValues
+            
+            viewModel.name.result.signal.observeValues { result in
+                let error = result.error?.reason
+                if (error ?? "").isEmpty {
+                    self.nameField.hideError()
+                } else {
+                    self.nameField.showErrorWithText(errorText: error!)
+                }
+            }
+            
+            viewModel.lastName.result.signal.observeValues { result in
+                let error = result.error?.reason
+                if (error ?? "").isEmpty {
+                    self.lastNameField.hideError()
+                } else {
+                    self.lastNameField.showErrorWithText(errorText: error!)
+                }
+            }
+            
+            viewModel.email.result.signal.observeValues { result in
+                let error = result.error?.reason
+                if (error ?? "").isEmpty {
+                    self.emailField.hideError()
+                } else {
+                    self.emailField.showErrorWithText(errorText: error!)
+                }
+            }
+            
+            viewModel.positions.signal.observe(on: UIScheduler()).observeValues { _ in
+                self.positionTable.reloadData()
+                self.heightTableContraint.constant = self.positionTable.contentSize.height
+            }
+            
+            viewModel.avatar.signal.observeValues({ url in
+                if let url = url, !url.isEmpty {
+                    self.avatarImage.kf.setImage(with: URL(string: url))
+                }
+            })
+        }
+    }
+    
+    @objc func tapPositionTable() {
+        self.performSegue(withIdentifier: "showPickPositions", sender: nil)
+    }
+    
+    @objc func tapAvatar() {
+        let actionPopup = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        actionPopup.addAction(UIAlertAction(title: NSLocalizedString("FromGallery", comment: ""), style: .default, handler: { _ in
+            let imagePickerController = UIImagePickerController()
+            
+            imagePickerController.sourceType = .photoLibrary
+            
+            imagePickerController.delegate = self
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            actionPopup.addAction(UIAlertAction(title: NSLocalizedString("FromCamera", comment: ""), style: .default, handler: { _ in
+                let imagePickerController = UIImagePickerController()
+                
+                imagePickerController.sourceType = .camera
+                
+                imagePickerController.delegate = self
+                self.present(imagePickerController, animated: true, completion: nil)
+            }))
+        }
+        
+        actionPopup.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive, handler: nil))
+        
+       present(actionPopup, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - Delegates picker
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            dismiss(animated: true, completion: nil)
+            return;
+        }
+        avatarImage.image = selectedImage.cropCenter(width: Double(avatarImage.frame.width), height: Double(avatarImage.frame.height))
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPickPositions" {
+            let nav = segue.destination as! UINavigationController
+            let pickPositionsView: PickPositionsView = nav.topViewController as! PickPositionsView
+            if let viewModel = viewModel {
+                pickPositionsView.viewModel?.selectedPositions = viewModel.positions.value
+                pickPositionsView.resultViewDelegate = self
+            }
+        }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -134,7 +280,10 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        if let viewModel = viewModel {
+            return viewModel.positions.value.count
+        }
+        return 0
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -145,13 +294,15 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "positionItem", for: indexPath)
-        //cell.frame = CGRect(x: 0, y: 0, width: positionTable.frame.width, height: 44)
-        //cell.textLabel?.text = "!1111111111"
-        var test = UILabel(frame: CGRect(x: 0, y: 0, width: positionTable.frame.width, height: 44))
-        test.text = "454343$"
-        test.textColor = UIColor.black
-        cell.contentView.addSubview(test)
-        
+        let positionName = UILabel(frame: CGRect(x: 0, y: 0, width: positionTable.frame.width, height: 44))
+        positionName.text = viewModel?.positions.value[indexPath.row]
+        positionName.font = UIFont(name: "HelveticaNeue", size: 14)
+        positionName.textColor = UIColor.black
+        positionName.tag = 904324
+        if let label = cell.contentView.viewWithTag(positionName.tag) as? UILabel {
+            label.removeFromSuperview()
+        }
+        cell.contentView.addSubview(positionName)
         return cell
     }
 }

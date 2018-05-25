@@ -36,6 +36,10 @@ class MenuView: UITableViewController {
 
         headerView.backgroundColor = AppColors.MenuHeaderBackgroundColor
         
+        let panHeader = UITapGestureRecognizer(target: self, action: #selector(self.openProfile))
+        panHeader.numberOfTapsRequired = 1
+        headerView.addGestureRecognizer(panHeader)
+        
         self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
         self.tableView.bounces = false
         self.tableView.separatorColor = AppColors.MenuSeparatorColor
@@ -71,7 +75,7 @@ class MenuView: UITableViewController {
         }
     }
     
-    @IBAction func openProfile(_ sender: Any) {
+    @objc func openProfile() {
         if let index = previousIndex {
             sideMenuController?.performSegue(withIdentifier: "showProfileView", sender: viewModel?.employee)
             tableView.deselectRow(at: index as IndexPath, animated: true)

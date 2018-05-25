@@ -115,9 +115,6 @@
                             </subviews>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <gestureRecognizers/>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="aMK-Ix-b4V" appends="YES" id="fXB-u2-F7B"/>
-                            </connections>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuItem" rowHeight="60" id="aR4-aI-vQx" customClass="MenuItem" customModule="EmployeesAnalytics">
@@ -173,11 +170,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dwP-gL-Mcj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="aMK-Ix-b4V">
-                    <connections>
-                        <action selector="openProfile:" destination="wU1-7s-Lqj" id="pkw-gl-MT9"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="482" y="515"/>
         </scene>
@@ -448,7 +440,7 @@
                             <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="1"/>
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="JGc-r8-Su7" kind="show" id="cZK-lE-hAS"/>
+                                <segue destination="JGc-r8-Su7" kind="show" identifier="showEditProfileView" id="cZK-lE-hAS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -512,8 +504,8 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="52" id="4qV-eV-lat"/>
                                                 </constraints>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <view key="tableHeaderView" contentMode="scaleToFill" id="FZr-kE-Y1I">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                                                <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="FZr-kE-Y1I">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kI7-k5-iXJ">
@@ -688,6 +680,7 @@
                         <outlet property="nameField" destination="nEd-hp-uQE" id="t60-OK-lFI"/>
                         <outlet property="phoneField" destination="if5-4Y-j0P" id="oMW-lr-f88"/>
                         <outlet property="pickPhotoButton" destination="gVr-Ky-3me" id="ffe-uZ-vFk"/>
+                        <outlet property="pickPhotoIcon" destination="W4i-2V-O6L" id="h9k-LQ-moH"/>
                         <outlet property="positionLabel" destination="kI7-k5-iXJ" id="UEc-PT-wYt"/>
                         <outlet property="positionTable" destination="6id-bR-zK4" id="HQa-t9-uGL"/>
                         <outlet property="skypeField" destination="XVB-3d-lCY" id="cEl-hf-kip"/>
@@ -748,7 +741,12 @@
                             <outlet property="delegate" destination="4Yg-t6-yj2" id="v8V-hI-2G6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="RES-eP-g4Z"/>
+                    <navigationItem key="navigationItem" id="RES-eP-g4Z">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="backArrow" id="Uze-ax-nUj">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="1wD-pC-0v4"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxF-lS-5TU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -793,7 +791,6 @@
         <!--Navigation Controller-->
         <scene sceneID="eFg-qV-OBk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="knJ-Ot-GpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JGc-r8-Su7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8GX-MS-2AU">
@@ -805,6 +802,7 @@
                         <segue destination="qk5-t1-aug" kind="relationship" relationship="rootViewController" id="xW5-ob-K0N"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="knJ-Ot-GpO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2351" y="1412"/>
         </scene>
