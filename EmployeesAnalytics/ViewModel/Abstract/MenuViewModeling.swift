@@ -12,8 +12,8 @@ import Result
 
 protocol MenuViewModeling {
     var Signout: Action<(), (), NoError>? { get set}
-    var avatarUrl: MutableProperty<String?> { get }
-    var userName: MutableProperty<String?> { get }
+    var avatarUrl: MutableProperty<String?> { get set }
+    var userName: MutableProperty<String?> { get set }
     var defaultError: MutableProperty<DefaultError?> { get }
     
     var employee: Employee? { get set }

@@ -17,5 +17,7 @@ protocol AccountServicing {
     
     func getAllRoles() -> SignalProducer<[String], DefaultError>
     
-    func uploadAvatar(data: Data) -> SignalProducer<[String], DefaultError>
+    func uploadAvatar(data: Data) -> SignalProducer<UploadedPhoto, DefaultError>
+    
+    func editProfile(employee: Employee) -> SignalProducer<Employee, DefaultError>
 }

@@ -13,7 +13,7 @@ struct EmployeeResult: Codable {
 
 class Employee: NSObject, Codable, NSCoding {
     var firstName, lastName, dateStartJob, avatarURL: String?
-    var skype, facebook, linkedin, note: String?
+    var skype, facebook, linkedin, usernameFromJira,  note: String?
     var croppedAvatarURL, id, email, phoneNumber: String?
     var roles: [String]?
     
@@ -67,6 +67,7 @@ class Employee: NSObject, Codable, NSCoding {
         email = aDecoder.decodeObject(forKey: "email") as? String
         phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String
         roles = aDecoder.decodeObject(forKey: "roles") as? [String]
+        usernameFromJira = aDecoder.decodeObject(forKey: "usernameFromJira") as? String
     }
     
     func encode(with aCoder: NSCoder){
@@ -83,10 +84,11 @@ class Employee: NSObject, Codable, NSCoding {
         aCoder.encode(email, forKey: "email")
         aCoder.encode(phoneNumber, forKey: "phoneNumber")
         aCoder.encode(roles, forKey: "roles")
+        aCoder.encode(usernameFromJira, forKey: "usernameFromJira")
     }
     
     enum CodingKeys: String, CodingKey {
-        case firstName, lastName, dateStartJob
+        case firstName, lastName, dateStartJob, usernameFromJira
         case avatarURL = "avatarUrl"
         case skype, facebook, linkedin, note
         case croppedAvatarURL = "croppedAvatarUrl"

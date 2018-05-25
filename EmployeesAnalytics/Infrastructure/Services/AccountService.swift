@@ -114,4 +114,13 @@ public final class AccountService : AccountServicing {
         let url = "\(Constants.BaseUrl)api/v1/upload/upload/photo"
         return network.uploadImage(url, data: data)
     }
+    
+    func editProfile(employee: Employee) -> SignalProducer<Employee, DefaultError> {
+        let url = "\(Constants.BaseUrl)api/users/editEmployeeProfile"
+        return network.post(url, data: employee).on(value: { (result) in
+            if result.id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue) {
+                UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: employee), forKey: employee.id!)
+            }
+        })
+    }
 }

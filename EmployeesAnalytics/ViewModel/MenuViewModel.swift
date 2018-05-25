@@ -17,8 +17,8 @@ public final class MenuViewModel : MenuViewModeling {
     let authenticationService: AuthenticationServicing
     let accountService: AccountServicing
     
-    let avatarUrl = MutableProperty<String?>(nil)
-    let userName = MutableProperty<String?>(nil)
+    var avatarUrl = MutableProperty<String?>(nil)
+    var userName = MutableProperty<String?>(nil)
     
     let defaultError = MutableProperty<DefaultError?>(nil)
     

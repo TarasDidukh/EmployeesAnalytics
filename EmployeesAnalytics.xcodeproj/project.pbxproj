@@ -21,6 +21,8 @@
 		2369969F20B70B9C002BD37E /* PickPositionsViewModeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2369969E20B70B9C002BD37E /* PickPositionsViewModeling.swift */; };
 		236996A120B710F1002BD37E /* PickPositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236996A020B710F1002BD37E /* PickPositionViewModel.swift */; };
 		23ABA61020B85135006F06AB /* UploadedPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABA60F20B85135006F06AB /* UploadedPhoto.swift */; };
+		23ABA61220B876D6006F06AB /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABA61120B876D6006F06AB /* UserStatus.swift */; };
+		23ABA61620B8772E006F06AB /* Departments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ABA61520B8772E006F06AB /* Departments.swift */; };
 		463D1D6920B1EC0700606ECC /* RootMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6820B1EC0700606ECC /* RootMenuView.swift */; };
 		463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6A20B1ECE100606ECC /* MenuView.swift */; };
 		463D1D6F20B1FE4B00606ECC /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463D1D6E20B1FE4B00606ECC /* UIApplicationExtensions.swift */; };
@@ -84,6 +86,8 @@
 		2369969E20B70B9C002BD37E /* PickPositionsViewModeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPositionsViewModeling.swift; sourceTree = "<group>"; };
 		236996A020B710F1002BD37E /* PickPositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPositionViewModel.swift; sourceTree = "<group>"; };
 		23ABA60F20B85135006F06AB /* UploadedPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedPhoto.swift; sourceTree = "<group>"; };
+		23ABA61120B876D6006F06AB /* UserStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
+		23ABA61520B8772E006F06AB /* Departments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Departments.swift; sourceTree = "<group>"; };
 		26C59420ABAA28F161573FC9 /* Pods-EmployeesAnalytics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.release.xcconfig"; sourceTree = "<group>"; };
 		40ECEE000D9A4CF7874F8EE9 /* Pods-EmployeesAnalytics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeesAnalytics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmployeesAnalytics/Pods-EmployeesAnalytics.debug.xcconfig"; sourceTree = "<group>"; };
 		463D1D6820B1EC0700606ECC /* RootMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootMenuView.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 				46B0DA2C20B0AA3B009F86D4 /* NetworkError.swift */,
 				46B0DA3720B172CF009F86D4 /* StorageKey.swift */,
 				46B0DA4220B19E6C009F86D4 /* ContentType.swift */,
+				23ABA61120B876D6006F06AB /* UserStatus.swift */,
+				23ABA61520B8772E006F06AB /* Departments.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -500,6 +506,7 @@
 				46B0DA3F20B17EEA009F86D4 /* AuthenticationService.swift in Sources */,
 				463D1D6B20B1ECE100606ECC /* MenuView.swift in Sources */,
 				46B0DA4320B19E6C009F86D4 /* ContentType.swift in Sources */,
+				23ABA61220B876D6006F06AB /* UserStatus.swift in Sources */,
 				2367A3EB20B4434900FEC8E2 /* EmployeeItemViewModeling.swift in Sources */,
 				46B0DA3120B0B35F009F86D4 /* Network.swift in Sources */,
 				23ABA61020B85135006F06AB /* UploadedPhoto.swift in Sources */,
@@ -541,6 +548,7 @@
 				46D5788420B5E88100E18B87 /* FloatingTextFieldExtension.swift in Sources */,
 				46B0DA2D20B0AA3B009F86D4 /* NetworkError.swift in Sources */,
 				46577A9520B7DF3F0022922B /* EditProfileViewModeling.swift in Sources */,
+				23ABA61620B8772E006F06AB /* Departments.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

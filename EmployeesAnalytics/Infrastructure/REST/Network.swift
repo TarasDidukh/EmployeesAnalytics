@@ -12,11 +12,13 @@ import Result
 
 public final class Network : Networking {
     var withApiToken: Bool
+    var contentType: ContentType
     
     private let queue = DispatchQueue(label: "EmployeesAnalytics.Infrastructure.REST.Network.Queue", attributes: [])
     
     init() {
         self.withApiToken = true
+        self.contentType = ContentType.EncodedContent
     }
     
     private func InitAuth() -> (String, String)?
@@ -33,7 +35,13 @@ public final class Network : Networking {
         if let authHeader = InitAuth() {
             adaptedUrlRequst.addValue(authHeader.0, forHTTPHeaderField: authHeader.1)
         }
+//        if contentType == ContentType.EncodedContent {
+//            adaptedUrlRequst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//        } else if contentType == ContentType.StringContent {
+//            adaptedUrlRequst.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+//        }
         self.withApiToken = true
+        self.contentType = ContentType.EncodedContent
         
         return adaptedUrlRequst
     }
@@ -48,8 +56,15 @@ public final class Network : Networking {
                 request.httpMethod = HTTPMethod.post.rawValue
                 request = self.adaptHeaders(request)
                 request.httpBody = jsonData
-                Alamofire.request(request).responseJSON(queue: self.queue) { response in
-                    self.handleResult(observer, response)
+                request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                Alamofire.request(request).responseString(queue: self.queue) { response in
+                    //self.handleResult(observer, response)
+                    do {
+                        let test1 = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                        print(test1)
+                    } catch let myJSONError {
+                        print(myJSONError)
+                    }
                 }
             }
         }

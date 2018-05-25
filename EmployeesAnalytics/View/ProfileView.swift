@@ -11,7 +11,9 @@ import ReactiveSwift
 import ReactiveCocoa
 import Result
 
-class ProfileView: UIViewController {
+class ProfileView: UIViewController, ResultViewDelegate {
+    
+    
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var positionLabel: UILabel!
@@ -53,6 +55,7 @@ class ProfileView: UIViewController {
         callButton.layer.shadowRadius = 15
         callButton.imageView?.tintColor = UIColor.white
     }
+    
     
     private func bindView() {
         if let viewModel = viewModel {
@@ -102,9 +105,22 @@ class ProfileView: UIViewController {
         if segue.identifier == "showEditProfileView" {
             let nav = segue.destination as! UINavigationController
             let editProfileView: EditProfileView = nav.topViewController as! EditProfileView
+            editProfileView.resultViewDelegate = self
             if let employee = viewModel?.employee {
                 editProfileView.viewModel?.employee = employee
             }
+        }
+    }
+    
+    func send(result: Any) {
+        if let employee = result as? Employee {
+            viewModel?.employee = employee
+            let nav = sideMenuController?.sideViewController as! UINavigationController
+            let menuView: MenuView = nav.topViewController as! MenuView
+            
+            menuView.viewModel?.avatarUrl.value = employee.avatar
+            menuView.viewModel?.userName.value = employee.userName
+        
         }
     }
     

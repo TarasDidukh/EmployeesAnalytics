@@ -16,6 +16,7 @@
 "NameEmpty" = "Name is required.";
 "LastNameEmpty"= "Last Name is required.";
 "EmailEmpty"= "Email is required.";
+"PhoneEmpty"= "Phone is required.";
 
 "NoConnection" = "Check your network connection and try again.";
 "Unknown" = "An unknown network error has occured.";

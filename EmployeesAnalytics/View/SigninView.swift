@@ -86,8 +86,10 @@ class SigninView: UIViewController {
     private func bindView()
     {
         #if DEBUG
-            loginField.text = "botanichek2015@gmail.com"
-            passwordField.text = "Bot541138"
+//            loginField.text = "botanichek2015@gmail.com"
+//            passwordField.text = "Bot541138"
+        loginField.text = "taras@gmail.com"
+        passwordField.text = "taras@gmail.com"
         #endif
         
         if let viewModel = viewModel {

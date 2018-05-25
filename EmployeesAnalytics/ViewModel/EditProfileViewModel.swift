@@ -12,7 +12,7 @@ import ReactiveCocoa
 import Result
 
 public final class EditProfileViewModel : EditProfileViewModeling {
-    var Save: Action<(), (), DefaultError>?
+    var Save: Action<(), Employee, DefaultError>?
     
     var avatar = MutableProperty<String?>(nil)
     var name = ValidatingProperty<String?, InputError>(nil) {
@@ -34,7 +34,9 @@ public final class EditProfileViewModel : EditProfileViewModeling {
         }
         return .valid
     }
-    var phone = MutableProperty<String?>(nil)
+    var phone = ValidatingProperty<String?, InputError>(nil) {
+        $0 == nil || $0!.isEmpty ? .invalid(InputError(reason: NSLocalizedString("PhoneEmpty", comment: ""))) : .valid
+    }
     var skype = MutableProperty<String?>(nil)
     
     var employee: Employee? {
@@ -51,8 +53,62 @@ public final class EditProfileViewModel : EditProfileViewModeling {
         }
     }
     
+    var uploadedPhoto: UploadedPhoto?
+    let accountService: AccountServicing
+    var defaultError = MutableProperty<DefaultError?>(nil)
+    
+    var imageData: Data? {
+        didSet {
+            startUploadingAvatar()?.start()
+        }
+    }
+    
+    func startUploadingAvatar() -> SignalProducer<UploadedPhoto, DefaultError>? {
+        if let data = imageData, !data.isEmpty {
+            return accountService.uploadAvatar(data: data).observe(on: UIScheduler()).on(failed: { (error) in
+                self.defaultError.value = error
+            }) { (result) in
+                self.uploadedPhoto = result
+            }
+        }
+        return nil
+    }
+    
+    func prepareEdit() {
+        employee?.firstName = name.value
+        employee?.lastName = lastName.value
+        employee?.roles = positions.value
+        employee?.phoneNumber = phone.value
+        employee?.email = email.value
+        employee?.skype = skype.value
+        if let uploadedPhoto = uploadedPhoto {
+            employee?.avatarURL = uploadedPhoto.pathFile
+        }
+    }
+    
     init(accountService: AccountServicing) {
+        self.accountService = accountService
         
+        let formValid = Property.combineLatest(email.result, lastName.result, name.result, phone.result).map({ tuple in
+            return !tuple.0.isInvalid && !tuple.1.isInvalid && !tuple.2.isInvalid && !tuple.3.isInvalid
+        })
+        
+        Save = Action<(), Employee, DefaultError>(enabledIf: formValid, execute: { _ in
+            if self.uploadedPhoto == nil, let uploadingPhoto = self.startUploadingAvatar() {
+                return uploadingPhoto.on(value: { _ in
+                    self.prepareEdit()
+                }).flatMap(.latest, { _ in
+                    self.accountService.editProfile(employee: self.employee!)
+                })
+            } else {
+                self.prepareEdit()
+                return accountService.editProfile(employee: self.employee!)
+            }
+        })
+        
+        Save?.errors.signal.observe(on: UIScheduler()).observeValues({ (defaultError) in
+            self.defaultError.value = defaultError
+        })
     }
     
 }

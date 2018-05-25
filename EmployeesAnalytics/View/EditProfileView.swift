@@ -36,8 +36,9 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
     private var isInit = false
     
     let picker = UIImagePickerController()
+    var rightBarButton: UIBarButtonItem?
 
-    
+    public var resultViewDelegate: ResultViewDelegate?
     public var viewModel: EditProfileViewModeling?
     
     override func viewDidLoad() {
@@ -62,12 +63,7 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         }))
         
-//        navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(Action<(), (), NoError>(execute: { _ in
-//            return SignalProducer { observer, disposable in
-//                self.performSegue(withIdentifier: "showPickPositions", sender: nil)
-//                observer.sendCompleted()
-//            }
-//        }))
+        rightBarButton = navigationItem.rightBarButtonItem
         
         navigationItem.title = NSLocalizedString("ProfileEdit", comment: "")
         
@@ -174,15 +170,50 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
                 }
             }
             
+            viewModel.phone.result.signal.observeValues { result in
+                let error = result.error?.reason
+                if (error ?? "").isEmpty {
+                    self.phoneField.hideError()
+                } else {
+                    self.phoneField.showErrorWithText(errorText: error!)
+                }
+            }
+            
             viewModel.positions.signal.observe(on: UIScheduler()).observeValues { _ in
                 self.positionTable.reloadData()
                 self.heightTableContraint.constant = self.positionTable.contentSize.height
             }
             
-            viewModel.avatar.signal.observeValues({ url in
+            viewModel.defaultError.signal.observe(on: UIScheduler()).observeValues({ error in
+                if let errorMessage = error?.type?.description {
+                    self.displayAlert(message: errorMessage)
+                }
+            })
+            
+            viewModel.avatar.producer.on(value: { url in
                 if let url = url, !url.isEmpty {
                     self.avatarImage.kf.setImage(with: URL(string: url))
                 }
+            }).start()
+            
+            viewModel.Save?.isExecuting.signal.observe(on: UIScheduler()).observeValues({ (isExecuting) in
+                if isExecuting {
+                    let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+                    let barButton = UIBarButtonItem(customView: activityIndicator)
+                    self.navigationItem.setRightBarButton(barButton, animated: true)
+                    activityIndicator.startAnimating()
+                    self.navigationItem.rightBarButtonItem?.isEnabled = false
+                } else {
+                    self.navigationItem.rightBarButtonItem = self.rightBarButton
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                }
+            })
+            
+            navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(viewModel.Save!)
+            
+            viewModel.Save?.values.signal.observe(on: UIScheduler()).observeValues({ (employee) in
+                self.resultViewDelegate?.send(result: employee)
+                self.dismiss(animated: true, completion: nil)
             })
         }
     }
@@ -226,6 +257,8 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
             return;
         }
         avatarImage.image = selectedImage.cropCenter(width: Double(avatarImage.frame.width), height: Double(avatarImage.frame.height))
+        
+        viewModel?.imageData = UIImageJPEGRepresentation(avatarImage.image!, 0.2)!
         
         dismiss(animated: true, completion: nil)
     }
