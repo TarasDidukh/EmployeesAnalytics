@@ -21,4 +21,8 @@ protocol ProfileViewModeling {
     var IsMyProfile: MutableProperty<Bool?> { get }
     var employee: Employee? { get set }
     var Call: Action<(), (), NoError>? { get set }
+    
+    var profileInfo: MutableProperty<[String]> { get }
+    
+    func checkAvailableEdit() -> Bool
 }

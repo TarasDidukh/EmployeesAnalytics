@@ -22,7 +22,12 @@ public final class MenuViewModel : MenuViewModeling {
     
     let defaultError = MutableProperty<DefaultError?>(nil)
     
-    var employee: Employee?
+    var employee: Employee? {
+        didSet {
+            self.avatarUrl.value = employee?.avatarFull
+            self.userName.value = employee?.userName
+        }
+    }
     
     init(authenticationService: AuthenticationServicing, accountService: AccountServicing) {
         self.authenticationService = authenticationService
@@ -34,10 +39,6 @@ public final class MenuViewModel : MenuViewModeling {
                 self.defaultError.value = defaulError
             }, value: { (employee) in
                 self.employee = employee
-                if let employee = employee {
-                   self.avatarUrl.value = employee.avatar
-                    self.userName.value = employee.userName
-                }
             }).start()
         
         Signout = Action<(), (), NoError>(execute: { _ in

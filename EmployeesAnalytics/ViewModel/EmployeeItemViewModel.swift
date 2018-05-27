@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import ReactiveSwift
 
 public final class EmployeeItemViewModel : EmployeeItemViewModeling {
-    var avatar: String?
-    var userName: String?
-    var position: String?
+    var avatar =  MutableProperty<String?>(nil)
+    var userName =  MutableProperty<String?>(nil)
+    var position =  MutableProperty<String?>(nil)
     var employee: Employee?
     
     init(avatar: String?, userName: String?, position: String?, employee: Employee?) {
-        self.avatar = avatar
-        self.userName = userName
-        self.position = position
+        self.avatar.value = avatar
+        self.userName.value = userName
+        self.position.value = position
         self.employee = employee
     }
 }

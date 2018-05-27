@@ -83,7 +83,12 @@ public final class EditProfileViewModel : EditProfileViewModeling {
         employee?.skype = skype.value
         if let uploadedPhoto = uploadedPhoto {
             employee?.avatarURL = uploadedPhoto.pathFile
+            employee?.croppedAvatarURL = uploadedPhoto.pathFile
         }
+//        else {
+//            employee?.avatarURL = ""
+//            employee?.croppedAvatarURL = ""
+//        }
     }
     
     init(accountService: AccountServicing) {
@@ -92,9 +97,8 @@ public final class EditProfileViewModel : EditProfileViewModeling {
         let formValid = Property.combineLatest(email.result, lastName.result, name.result, phone.result).map({ tuple in
             return !tuple.0.isInvalid && !tuple.1.isInvalid && !tuple.2.isInvalid && !tuple.3.isInvalid
         })
-        
         Save = Action<(), Employee, DefaultError>(enabledIf: formValid, execute: { _ in
-            if self.uploadedPhoto == nil, let uploadingPhoto = self.startUploadingAvatar() {
+            if self.imageData != nil, self.uploadedPhoto == nil, let uploadingPhoto = self.startUploadingAvatar() {
                 return uploadingPhoto.on(value: { _ in
                     self.prepareEdit()
                 }).flatMap(.latest, { _ in

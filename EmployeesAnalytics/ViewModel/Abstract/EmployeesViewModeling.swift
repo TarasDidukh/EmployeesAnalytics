@@ -17,4 +17,5 @@ protocol EmployeesViewModeling {
     var searchInput: MutableProperty<String?> { get }
     var employeeItems: MutableProperty<[EmployeeItemViewModeling]> { get }
     var defaultError: MutableProperty<DefaultError?> { get }
+    func edit(employee: Employee)
 }

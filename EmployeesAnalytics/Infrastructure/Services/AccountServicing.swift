@@ -20,4 +20,6 @@ protocol AccountServicing {
     func uploadAvatar(data: Data) -> SignalProducer<UploadedPhoto, DefaultError>
     
     func editProfile(employee: Employee) -> SignalProducer<Employee, DefaultError>
+    
+    func checkAvailableEdit() -> Bool
 }

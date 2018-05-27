@@ -10,11 +10,13 @@ import UIKit
 import SideMenuController
 import SwinjectStoryboard
 import Swinject
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    public var reachabilityManager = NetworkReachabilityManager()
     var container: Container = {
         let container = Container()
         container.storyboardInitCompleted(SigninView.self) { r, c in
@@ -54,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(ExternalAppChanneling.self) { _ in ExternalAppChannel() }
         
         container.register(ProfileViewModeling.self) { r in
-            ProfileViewModel(externalAppChannel: r.resolve(ExternalAppChanneling.self)!)
+            ProfileViewModel(externalAppChannel: r.resolve(ExternalAppChanneling.self)!, accountService: r.resolve(AccountServicing.self)!)
         }
         
         container.register(EditProfileViewModeling.self) { r in
@@ -101,7 +103,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = storyboard.instantiateViewController(withIdentifier: initView)
         window?.makeKeyAndVisible()
         
+       // observeNetworkConnection()
+        
         return true
+    }
+    
+    func observeNetworkConnection() {
+        let headerView = UIView(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.width, height: 25))
+        headerView.backgroundColor = AppColors.MainBlue
+        let labelText = NSLocalizedString("ConnectionLost", comment: "")
+        var headerCenterWidth = NSString(string: labelText).size(withAttributes: [NSAttributedStringKey.font: UIFont(name:"HelveticaNeue", size: 12.0)]).width + 35
+        let headerCenterView = UIView(frame: CGRect(x: (UIScreen.main.bounds.width - headerCenterWidth)/2, y: 0, width: headerCenterWidth, height: 25))
+        headerCenterView.backgroundColor = AppColors.MainBlue
+        let icon = UIImageView(frame: CGRect(x: 0, y: 4.5, width: 16, height: 16))
+        icon.image = UIImage(named: "wifi")
+        headerCenterView.addSubview(icon)
+        let label = UILabel(frame: CGRect(x: 25, y: 4.5, width: headerCenterWidth - 25, height: 16))
+        label.text = labelText
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "HelveticaNeue", size: 12)
+        headerCenterView.addSubview(label)
+        headerView.addSubview(headerCenterView)
+        
+        let reachabilityManager = NetworkReachabilityManager()
+        reachabilityManager?.startListening()
+        
+        reachabilityManager?.listener = { _ in
+            if let isNetworkReachable = reachabilityManager?.isReachable,
+                isNetworkReachable == true {
+                headerView.removeFromSuperview()
+            } else {
+//                if !(UIApplication.shared.visibleViewController is SigninView) && !(UIApplication.shared.visibleViewController is PickPositionsView) {
+//                    UIApplication.shared.visibleViewController?.view.addSubview(headerView)
+//                }
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

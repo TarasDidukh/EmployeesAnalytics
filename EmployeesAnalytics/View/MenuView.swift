@@ -50,16 +50,18 @@ class MenuView: UITableViewController {
         if let viewModel = viewModel {
             viewModel.defaultError.producer
                 .on(value: { error in
-                    if let errorMessage = error?.type?.description {
+                    if error?.type != NetworkError.ConnectionLost, error?.type != NetworkError.NotConnectedToInternet, let errorMessage = error?.type?.description {
                         self.displayAlert(message: errorMessage)
                     }
                 }).start()
             
             viewModel.avatarUrl.producer
                 .on(value: { url in
-                    if let url = url {
+                    if let url = url, !url.isEmpty {
                         let processor = RoundCornerImageProcessor(cornerRadius: 37)
-                        self.profileImage.kf.setImage(with: URL(string: url), options: [.processor(processor)])
+                        self.profileImage.kf.setImage(with: URL(string: url), placeholder: UIImage(named: "noAvatar"), options: [.processor(processor)])
+                    } else {
+                        self.profileImage.image = UIImage(named: "noAvatar")
                     }
                 }).start()
             
@@ -91,6 +93,12 @@ class MenuView: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsMenu.count
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let employee = viewModel?.employee, self.sideMenuController?.centerViewController is UINavigationController {
+            ((self.sideMenuController?.centerViewController as! UINavigationController).topViewController as? ProfileView)?.viewModel?.employee = employee
+        }
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,6 +109,7 @@ class MenuView: UITableViewController {
         return cell
     }
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        sideMenuController?.toggle()
         if previousIndex?.row == indexPath.row {
             return
         }
@@ -115,7 +124,7 @@ class MenuView: UITableViewController {
             ImageCache.default.clearDiskCache()
         }
         previousIndex = indexPath as NSIndexPath?
-        sideMenuController?.toggle()
+        
     }
 
 }

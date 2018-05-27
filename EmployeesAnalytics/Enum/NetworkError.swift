@@ -108,7 +108,7 @@ public enum NetworkError: CustomStringConvertible {
         case .InternationalRoamingOff:
             text = "InternationalRoamingOff"//NSLocalizedString("NetworkError_InternationalRoamingOff", comment: "Error description")
         case .NotReachedServer:
-            text = "NotReachedServer"//NSLocalizedString("NetworkError_NotReachedServer", comment: "Error description")
+            text = NSLocalizedString("NotReachedServer", comment: "Error description")
         case .ConnectionLost:
             text = NSLocalizedString("NoConnection", comment: "Error description")
         case .IncorrectDataReturned:

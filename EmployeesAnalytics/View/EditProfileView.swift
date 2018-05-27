@@ -44,7 +44,7 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         bindView()
-        avatarImage.tintColor = AppColors.MenuHeaderBackgroundColor
+        avatarImage.tintColor = AppColors.GrayIconTint
         avatarImage.layer.cornerRadius = 55
         avatarImage.layer.masksToBounds = false
         avatarImage.clipsToBounds = true
@@ -64,6 +64,7 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
         }))
         
         rightBarButton = navigationItem.rightBarButtonItem
+        navigationItem.rightBarButtonItem?.isEnabled = true
         
         navigationItem.title = NSLocalizedString("ProfileEdit", comment: "")
         
@@ -185,20 +186,24 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
             
             viewModel.defaultError.signal.observe(on: UIScheduler()).observeValues({ error in
-                if let errorMessage = error?.type?.description {
+                if error?.type != NetworkError.ConnectionLost, error?.type != NetworkError.NotConnectedToInternet, let errorMessage = error?.type?.description {
                     self.displayAlert(message: errorMessage)
                 }
             })
             
-            viewModel.avatar.producer.on(value: { url in
+            viewModel.avatar.producer.observe(on: UIScheduler()).on(value: { url in
                 if let url = url, !url.isEmpty {
-                    self.avatarImage.kf.setImage(with: URL(string: url))
+                    //self.avatarImage.kf.setImage(with: URL(string: url))
+                    let placeholder = UIImageView(image: UIImage(named: "noAvatar"))
+                    placeholder.tintColor = AppColors.GrayIconTint
+                    self.avatarImage.kf.setImage(with: URL(string: url), placeholder: placeholder)
                 }
             }).start()
             
             viewModel.Save?.isExecuting.signal.observe(on: UIScheduler()).observeValues({ (isExecuting) in
                 if isExecuting {
                     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+                    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
                     let barButton = UIBarButtonItem(customView: activityIndicator)
                     self.navigationItem.setRightBarButton(barButton, animated: true)
                     activityIndicator.startAnimating()
@@ -208,14 +213,24 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
                     self.navigationItem.rightBarButtonItem?.isEnabled = true
                 }
             })
-            
-            navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(viewModel.Save!)
+            navigationItem.rightBarButtonItem!.reactive.isEnabled <~ viewModel.Save!.isEnabled.signal.delay(0.2, on: QueueScheduler.main).map({_ in true})
+            navigationItem.rightBarButtonItem?.reactive.pressed = CocoaAction(viewModel.Save!) { _ in
+                self.nameField.resignFirstResponder()
+                self.lastNameField.resignFirstResponder()
+                self.emailField.resignFirstResponder()
+                self.phoneField.resignFirstResponder()
+                self.skypeField.resignFirstResponder()
+            }
             
             viewModel.Save?.values.signal.observe(on: UIScheduler()).observeValues({ (employee) in
                 self.resultViewDelegate?.send(result: employee)
                 self.dismiss(animated: true, completion: nil)
             })
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        observeNetworkConnection()
     }
     
     @objc func tapPositionTable() {
@@ -256,6 +271,7 @@ class EditProfileView: UIViewController, UITableViewDataSource, UITableViewDeleg
             dismiss(animated: true, completion: nil)
             return;
         }
+        self.avatarImage.kf.setImage(with: URL(string: ""))
         avatarImage.image = selectedImage.cropCenter(width: Double(avatarImage.frame.width), height: Double(avatarImage.frame.height))
         
         viewModel?.imageData = UIImageJPEGRepresentation(avatarImage.image!, 0.2)!

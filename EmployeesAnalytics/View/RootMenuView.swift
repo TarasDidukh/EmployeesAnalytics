@@ -21,6 +21,7 @@ class RootMenuView: SideMenuController {
         if segue.identifier == "showProfileView" {
             let nav = segue.destination as! UINavigationController
             let profileView: ProfileView = nav.topViewController as! ProfileView
+            profileView.isBackActive = false
             if let employee = sender as? Employee {
                 profileView.viewModel?.employee = employee
             }

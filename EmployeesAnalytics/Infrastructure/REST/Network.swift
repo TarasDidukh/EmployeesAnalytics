@@ -18,7 +18,7 @@ public final class Network : Networking {
     
     init() {
         self.withApiToken = true
-        self.contentType = ContentType.EncodedContent
+        self.contentType = ContentType.StringContent
     }
     
     private func InitAuth() -> (String, String)?
@@ -33,15 +33,15 @@ public final class Network : Networking {
     {
         var adaptedUrlRequst = urlRequest
         if let authHeader = InitAuth() {
-            adaptedUrlRequst.addValue(authHeader.0, forHTTPHeaderField: authHeader.1)
+            adaptedUrlRequst.addValue(authHeader.1, forHTTPHeaderField: authHeader.0)
         }
-//        if contentType == ContentType.EncodedContent {
-//            adaptedUrlRequst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//        } else if contentType == ContentType.StringContent {
-//            adaptedUrlRequst.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-//        }
+        if contentType == ContentType.EncodedContent {
+            adaptedUrlRequst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        } else if contentType == ContentType.StringContent {
+            adaptedUrlRequst.setValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        }
         self.withApiToken = true
-        self.contentType = ContentType.EncodedContent
+        self.contentType = ContentType.StringContent
         
         return adaptedUrlRequst
     }
@@ -50,21 +50,13 @@ public final class Network : Networking {
         return SignalProducer { observer, disposable in
             let encoder = JSONEncoder()
             let jsonData = try! encoder.encode(data)
-            
             if let url = URL(string: url) {
                 var request = URLRequest(url: url)
-                request.httpMethod = HTTPMethod.post.rawValue
                 request = self.adaptHeaders(request)
+                request.httpMethod = HTTPMethod.post.rawValue
                 request.httpBody = jsonData
-                request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                Alamofire.request(request).responseString(queue: self.queue) { response in
-                    //self.handleResult(observer, response)
-                    do {
-                        let test1 = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.mutableContainers)
-                        print(test1)
-                    } catch let myJSONError {
-                        print(myJSONError)
-                    }
+                Alamofire.request(request).responseJSON(queue: self.queue) { response in
+                    self.handleResult(observer, response)
                 }
             }
         }
@@ -84,27 +76,14 @@ public final class Network : Networking {
         }
     }
     
-    func post(_ url: String, parameters: [String: String]?) -> SignalProducer<(), NoError> {
-        return SignalProducer { observer, disposable in
-            var headers: [String: String]? = nil
-            if let authHeader = self.InitAuth() {
-                headers = [authHeader.0 : authHeader.1]
-            }
-            Alamofire.request(url, method: .post, parameters: parameters, headers: headers)
-                .response(queue: self.queue){ response in
-                    observer.sendCompleted()
-            }
-        }
-    }
-    
     func get<TResponse : Codable, TError: ErrorProvider>(_ url: String, parameters: [String: String]?) -> SignalProducer<TResponse, TError> {
         return SignalProducer { observer, disposable in
             var headers: [String: String]? = nil
             if let authHeader = self.InitAuth() {
                 headers = [authHeader.0 : authHeader.1]
             }
-            
-            Alamofire.request(url, method: .get, parameters: parameters, headers: headers)
+
+            Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding(destination: .queryString), headers: headers)
                 .responseJSON(queue: self.queue){ response in
                     self.handleResult(observer, response)
             }
@@ -138,13 +117,6 @@ public final class Network : Networking {
         switch response.result {
         case .success:
             do {
-                do {
-                    let test1 = try JSONSerialization.jsonObject(with: response.data!, options: JSONSerialization.ReadingOptions.mutableContainers)
-                    print(test1)
-                } catch let myJSONError {
-                    print(myJSONError)
-                }
-                
                 let result = try JSONDecoder().decode(TResponse.self, from: response.data!)
                 observer.send(value: result)
             }catch {

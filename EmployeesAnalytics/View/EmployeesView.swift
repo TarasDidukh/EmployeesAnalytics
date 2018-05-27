@@ -13,7 +13,7 @@ import Foundation
 import Result
 import SwipeCellKit
 
-class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
+class EmployeesView: UITableViewController, SwipeTableViewCellDelegate, ResultViewDelegate {
     public var viewModel: EmployeesViewModeling?
     var searchBar = UISearchBar()
     var navigationData: Employee?
@@ -23,15 +23,13 @@ class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
         setupSearchBar()
         
         tableView.tableFooterView = UIView()
-        
+        tableView.bounces = false
         
         bindView()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
+
     
     private func bindView() {
         if let viewModel = viewModel {
@@ -40,6 +38,13 @@ class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
                 .start()
             viewModel.searchInput <~ searchBar.reactive.continuousTextValues
                 .throttle(0.5, on: QueueScheduler.main)
+            
+            viewModel.defaultError.producer
+                .on(value: { error in
+                    if error?.type != NetworkError.ConnectionLost, error?.type != NetworkError.NotConnectedToInternet, let errorMessage = error?.type?.description {
+                        self.displayAlert(message: errorMessage)
+                    }
+                }).start()
             
             viewModel.Search?.isExecuting.producer.observe(on: UIScheduler()).on(value: { (isExecuting) in
                 if viewModel.employeeItems.value.count == 0 {
@@ -55,6 +60,22 @@ class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
                     self.view.emptyList(false)
                 }
             }).start()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let menuView: MenuView = sideMenuController?.sideViewController as! MenuView
+        menuView.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: UITableViewScrollPosition.middle)
+        observeNetworkConnection(false)
+    }
+    
+    func send(result: Any) {
+        if let employee = result as? Employee {
+            if employee.isMyProfile {
+                let menuView: MenuView = sideMenuController?.sideViewController as! MenuView
+                menuView.viewModel?.employee = employee
+            }
+            viewModel?.edit(employee: employee)
         }
     }
 
@@ -99,6 +120,7 @@ class EmployeesView: UITableViewController, SwipeTableViewCellDelegate {
             let nav = segue.destination as! UINavigationController
             let profileView: ProfileView = nav.topViewController as! ProfileView
             profileView.viewModel?.employee = navigationData
+            profileView.resultViewDelegate = self
         }
     }
     

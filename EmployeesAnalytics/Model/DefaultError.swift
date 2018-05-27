@@ -10,10 +10,11 @@ import Foundation
 
 public final class DefaultError : ErrorProvider {
     var type: NetworkError?
-    var description: String?
+    var description: String = ""
     
     init() {
         type = NetworkError.Unknown
+        
     }
     init(error: NSError) {
         type = NetworkError(error: error)

@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import ReactiveSwift
 
 protocol EmployeeItemViewModeling {
-    var avatar: String? { get }
-    var userName: String? { get }
-    var position: String? { get }
-    var employee: Employee? { get }
+    var avatar: MutableProperty<String?> { get set }
+    var userName:  MutableProperty<String?> { get set }
+    var position: MutableProperty<String?> { get set}
+    var employee: Employee? { get set }
 }

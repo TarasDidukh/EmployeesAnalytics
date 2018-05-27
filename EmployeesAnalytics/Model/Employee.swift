@@ -14,8 +14,13 @@ struct EmployeeResult: Codable {
 class Employee: NSObject, Codable, NSCoding {
     var firstName, lastName, dateStartJob, avatarURL: String?
     var skype, facebook, linkedin, usernameFromJira,  note: String?
-    var croppedAvatarURL, id, email, phoneNumber: String?
+    var croppedAvatarURL, email, phoneNumber: String?
+    var id: String
     var roles: [String]?
+    
+    var isMyProfile: Bool {
+        return id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue)
+    }
     
     var userName: String {
         get {
@@ -63,7 +68,7 @@ class Employee: NSObject, Codable, NSCoding {
         linkedin = aDecoder.decodeObject(forKey: "linkedin") as? String
         note = aDecoder.decodeObject(forKey: "note") as? String
         croppedAvatarURL = aDecoder.decodeObject(forKey: "croppedAvatarURL") as? String
-        id = aDecoder.decodeObject(forKey: "id") as? String
+        id = aDecoder.decodeObject(forKey: "id") as! String
         email = aDecoder.decodeObject(forKey: "email") as? String
         phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as? String
         roles = aDecoder.decodeObject(forKey: "roles") as? [String]

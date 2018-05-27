@@ -18,96 +18,66 @@ public final class AccountService : AccountServicing {
     }
     
     func getProfile(withId id: String) -> SignalProducer<Employee?, DefaultError> {
-        return SignalProducer { observer, disposable in
-            if let object = UserDefaults.standard.value(forKey: id) as? NSData {
-                let employee = NSKeyedUnarchiver.unarchiveObject(with: object as Data) as! Employee
+        if let object = UserDefaults.standard.value(forKey: id) as? NSData {
+            let employee = NSKeyedUnarchiver.unarchiveObject(with: object as Data) as! Employee
+            return SignalProducer { observer, disposable in
                 observer.send(value: employee)
+                observer.sendCompleted()
             }
-            
-            let parameters : [String: String] = ["UserId": id]
-            let url = "\(Constants.BaseUrl)api/users/GetUsersById"
-            
-            let producer: SignalProducer<EmployeeResult, DefaultError> = self.network.get(url, parameters: parameters)
-            producer.on(
-                failed: { (defaultError) in
-                    observer.send(error: defaultError)
-                    observer.sendCompleted()
-            }, completed: {
-                observer.sendCompleted()
-            }, interrupted: {
-                observer.sendCompleted()
-            }, terminated: {
-                observer.sendCompleted()
-            }, value: { (employee) in
-                if let employee = employee.data, employee.id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue) {
-                    UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: employee), forKey: employee.id!)
-                }
-                observer.send(value: employee.data)
-                observer.sendCompleted()
-            }).start()
         }
+        
+        let parameters : [String: String] = ["UserId": id]
+        let url = "\(Constants.BaseUrl)api/users/GetUsersById"
+        
+        let producer: SignalProducer<EmployeeResult, DefaultError> = self.network.get(url, parameters: parameters)
+        return producer.on(value: { (employee) in
+            if let employee = employee.data, employee.isMyProfile {
+                UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: employee), forKey: employee.id)
+                UserDefaults.standard.synchronize()
+            }
+        }).map({ $0.data })
     }
     
     func searchEmployees(input: String?) -> SignalProducer<[Employee], DefaultError> {
-        return SignalProducer { observer, disposable in
-            let parameters : [String: String] = ["UserName": input ?? ""]
-            let url = "\(Constants.BaseUrl)api/users/getUsersbyUserName"
-            
-            let producer: SignalProducer<[Employee], DefaultError> = self.network.get(url, parameters: parameters)
-            producer.on(
-                failed: { (defaultError) in
-                    observer.send(error: defaultError)
-                    observer.sendCompleted()
-            }, completed: {
-                observer.sendCompleted()
-            }, interrupted: {
-                observer.sendCompleted()
-            }, terminated: {
-                observer.sendCompleted()
-            }, value: { (employees) in
-                
-                observer.send(value: employees)
-                observer.sendCompleted()
-            }).start()
+        let parameters : [String: String] = ["SearchName": input?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? "",
+                                             "PaginationViewObjectCount": String(100000)] //UserName
+        let url = "\(Constants.BaseUrl)api/users/FilterUsers" // getUsersbyUserName
+        
+        struct FilterResult: Codable {
+            var data: [Employee]
+            enum CodingKeys: String, CodingKey {
+                case data
+            }
         }
+        
+        let producer: SignalProducer<FilterResult, DefaultError> = self.network.get(url, parameters: parameters)
+        return producer.map({$0.data})
     }
     
     func getAllRoles() -> SignalProducer<[String], DefaultError> {
-        return SignalProducer { observer, disposable in
-            if let roles = UserDefaults.standard.value(forKey: StorageKey.AllRoles.rawValue) as? [String] {
+        if let roles = UserDefaults.standard.value(forKey: StorageKey.AllRoles.rawValue) as? [String] {
+            return SignalProducer { observer, disposable in
                 observer.send(value: roles)
                 observer.sendCompleted()
-                return;
             }
-            
-            let url = "\(Constants.BaseUrl)api/role/GetRoles"
-            
-            struct RolesResult: Codable {
-                var data: [String]
-                enum CodingKeys: String, CodingKey {
-                    case data
-                }
-            }
-            
-            let producer: SignalProducer<RolesResult, DefaultError> = self.network.get(url, parameters: nil)
-            producer.on(
-                failed: { (defaultError) in
-                    observer.send(error: defaultError)
-                    observer.sendCompleted()
-            }, completed: {
-                observer.sendCompleted()
-            }, interrupted: {
-                observer.sendCompleted()
-            }, terminated: {
-                observer.sendCompleted()
-            }, value: { (result) in
-                if !result.data.isEmpty {
-                    UserDefaults.standard.set(result.data, forKey: StorageKey.AllRoles.rawValue)
-                }
-                observer.send(value: result.data)
-                observer.sendCompleted()
-            }).start()
         }
+        
+        let url = "\(Constants.BaseUrl)api/role/GetRoles"
+        
+        struct RolesResult: Codable {
+            var data: [String]
+            enum CodingKeys: String, CodingKey {
+                case data
+            }
+        }
+        
+        let producer: SignalProducer<RolesResult, DefaultError> = self.network.get(url, parameters: nil)
+        return producer.on(value: { (result) in
+            if !result.data.isEmpty {
+                UserDefaults.standard.set(result.data, forKey: StorageKey.AllRoles.rawValue)
+                UserDefaults.standard.synchronize()
+            }
+        }).map({ $0.data })
     }
     
     func uploadAvatar(data: Data) -> SignalProducer<UploadedPhoto, DefaultError> {
@@ -115,11 +85,22 @@ public final class AccountService : AccountServicing {
         return network.uploadImage(url, data: data)
     }
     
+    func checkAvailableEdit() -> Bool  {
+        if let userId = UserDefaults.standard.value(forKey: StorageKey.UserId.rawValue) as? String, let object = UserDefaults.standard.value(forKey: userId) as? NSData {
+            let employee = NSKeyedUnarchiver.unarchiveObject(with: object as Data) as! Employee
+            let allowedEdit = ["Project manager", "CEO", "COO", "CMO", "CTO", "CFO", "HR"]
+            return employee.roles?.contains(where: {allowedEdit.contains($0)}) ?? false
+        }
+        
+        return false
+    }
+    
     func editProfile(employee: Employee) -> SignalProducer<Employee, DefaultError> {
         let url = "\(Constants.BaseUrl)api/users/editEmployeeProfile"
         return network.post(url, data: employee).on(value: { (result) in
-            if result.id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue) {
-                UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: employee), forKey: employee.id!)
+            if result.isMyProfile {
+                UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: result), forKey: result.id)
+                UserDefaults.standard.synchronize()
             }
         })
     }

@@ -18,6 +18,7 @@ public final class ProfileViewModel : ProfileViewModeling {
     var email = MutableProperty<String?>(nil)
     var phone = MutableProperty<String?>(nil)
     var skype = MutableProperty<String?>(nil)
+    var profileInfo = MutableProperty<[String]>([])
     var IsMyProfile = MutableProperty<Bool?>(nil)
     var Call: Action<(), (), NoError>?
     let externalAppChannel: ExternalAppChanneling
@@ -29,17 +30,29 @@ public final class ProfileViewModel : ProfileViewModeling {
             email.value = employee?.email
             phone.value = employee?.phoneNumber
             skype.value = employee?.skype
-            
-            if employee?.id == UserDefaults.standard.string(forKey: StorageKey.UserId.rawValue) {
-                IsMyProfile.value = true
-            } else {
-                IsMyProfile.value = false
-
+            IsMyProfile.value = employee?.isMyProfile
+            var temp: [String] = []
+            if !(email.value ?? "").isEmpty {
+                temp.append(email.value!)
             }
+            if !(phone.value ?? "").isEmpty {
+                temp.append(phone.value!)
+            }
+            if !(skype.value ?? "").isEmpty {
+                temp.append(skype.value!)
+            }
+            profileInfo.value = temp
         }
     }
     
-    init(externalAppChannel: ExternalAppChanneling) {
+    let accountService: AccountServicing
+    
+    func checkAvailableEdit() -> Bool {
+        return accountService.checkAvailableEdit()
+    }
+    
+    init(externalAppChannel: ExternalAppChanneling, accountService: AccountServicing) {
+        self.accountService = accountService
         self.externalAppChannel = externalAppChannel
         
         Call = Action<(), (), NoError>(execute: { (index) in
